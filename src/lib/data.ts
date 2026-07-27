@@ -122,8 +122,8 @@ export const INITIAL_SERVICES: Service[] = [
     title: 'Penyusunan Makalah & Essay',
     slug: 'jasa-makalah',
     category: 'Akademik',
-    price: 35000,
-    priceUnit: '/file',
+    price: 3000,
+    priceUnit: '/halaman',
     description: 'Penulisan makalah kuliah/sekolah terstruktur rapi, referensi terpercaya, daftar pustaka otomatis (Mendeley).',
     fullDescription: 'Jasa pembuatan makalah ilmiah, paper kuliah, essay kritikal, dan laporan praktikum. Setiap karya disusun berdasarkan literatur ilmiah valid (Google Scholar/ScienceDirect) dan menggunakan sitasi standar seperti APA 7th atau IEEE.',
     features: ['Sitasi Mendeley / Zotero', 'Lengkap Cover & Daftar Pustaka', 'File DOCX & PDF', 'Bebas Plagiasi Turnitin'],
@@ -135,15 +135,15 @@ export const INITIAL_SERVICES: Service[] = [
   },
   {
     id: 'srv-6',
-    title: 'Paper / Artikel Ilmiah',
+    title: 'Paper / Artikel Ilmiah (Memindah ke Template)',
     slug: 'paper-artikel',
     category: 'Akademik',
-    price: 45000,
+    price: 75000,
     priceUnit: '/artikel',
-    description: 'Penulisan paper atau artikel ilmiah untuk tugas seminar, conference, atau publikasi kampus.',
-    fullDescription: 'Layanan spesialis penulisan paper riset dan artikel akademik berkualitas tinggi. Menggunakan metode analisa yang tajam, tinjauan literatur komprehensif, dan gaya bahasa akademis yang baku.',
-    features: ['Riset Literatur Lengkap', 'Struktur IMRAD Baku', 'Format Rapi Siap Cetak', 'Pengerjaan Cepat'],
-    estimatedTime: '2-3 Hari',
+    description: 'Memindah & merapikan naskah tulisan ke template jurnal / conference sesuai format panduan.',
+    fullDescription: 'Layanan memindahkan dan merapikan naskah tulisan ke dalam template artikel ilmiah, paper conference, atau jurnal sesuai format panduan kampus/publisher (IEEE/APA/OJS).',
+    features: ['Format Sesuai Template Jurnal / IEEE', 'Struktur IMRAD Baku & Rapi', 'Penataan Grafik, Gambar & Tabel', 'Pengerjaan Cepat'],
+    estimatedTime: '1-2 Hari',
     popular: false,
     rating: 4.9,
     reviewCount: 76,
@@ -154,7 +154,7 @@ export const INITIAL_SERVICES: Service[] = [
     title: 'Jasa Pengetikan & Rapikan Dokumen',
     slug: 'jasa-pengetikan',
     category: 'Akademik',
-    price: 3000,
+    price: 2000,
     priceUnit: '/halaman',
     description: 'Pengetikan ulang dokumen, merapikan format MS Word/Excel/PDF, nomor halaman, & daftar isi otomatis.',
     fullDescription: 'Layanan ketik dokumen cepat dari foto, gambar, rekaman audio, atau tulisan tangan ke Microsoft Word. Termasuk merapikan margin, font, spasi, penomoran halaman romawi/angka, serta daftar isi/tabel/gambar otomatis.',
@@ -170,10 +170,10 @@ export const INITIAL_SERVICES: Service[] = [
     title: 'Jasa Tulis Tangan Rapi',
     slug: 'tulis-tangan',
     category: 'Akademik',
-    price: 4000,
+    price: 5000,
     priceUnit: '/halaman',
     description: 'Penulisan tangan tugas sekolah/kuliah di kertas folio/HVS dengan tulisan super rapi dan bersih.',
-    fullDescription: 'Layanan jasa tulis tangan tugas sekolah, rangkuman materi, atau catatan kuliah pada buku, kertas folio bergaris, atau HVS. Tulisan dijamin rapi, konsisten, tidak ada tip-ex berlebihan, dan difoto dengan pencahayaan terang definisi tinggi (atau dikirimkan bentuk fisik jika diinginkan).',
+    fullDescription: 'Layanan jasa tulis tangan tugas sekolah, rangkuman materi, atau catatan kuliah pada buku, kertas folio bergaris, atau HVS. Tulisan dijamin rapi, konsisten, tidak ada tip-ex berlebihan, dan difoto dengan pencahayaan terang definisi tinggi.',
     features: ['Tulisan Tegak / Bersambung Rapi', 'Tersedia Pilihan Kertas Folio/HVS', 'Hasil Foto Scan CamScanner HD', 'Pengiriman Cepat'],
     estimatedTime: '1 Hari',
     popular: true,
@@ -202,7 +202,7 @@ export const INITIAL_SERVICES: Service[] = [
     title: 'Desain CV ATS Friendly & Kreatif',
     slug: 'desain-cv',
     category: 'Desain',
-    price: 20000,
+    price: 25000,
     priceUnit: '/desain',
     description: 'Pembuatan CV profesional lolos sistem ATS perusahaan & CV Kreatif visual menarik + Surat Lamaran.',
     fullDescription: 'Tingkatkan peluang dipanggil interview kerja dengan CV standar ATS (Applicant Tracking System) yang direkomendasikan HRD atau CV Visual Kreatif untuk bidang industri kreatif. Bonus pembuatan Surat Lamaran Kerja (Cover Letter) profesional.',
@@ -342,21 +342,21 @@ export function getServices(): Service[] {
     }
     const parsed: Service[] = JSON.parse(stored);
     
-    // Ensure newly added initial services (like paket terima beres & print) exist
+    // Ensure initial services & price updates exist
     let updated = [...parsed];
     let changed = false;
 
-    // Sync srv-12 (edit-video) price update if cached as 50000
-    const editVideoIndex = updated.findIndex(s => s.slug === 'edit-video');
-    if (editVideoIndex !== -1 && updated[editVideoIndex].price === 50000) {
-      updated[editVideoIndex].price = 75000;
-      changed = true;
-    }
-
     INITIAL_SERVICES.forEach(initSrv => {
-      if (!updated.some(s => s.slug === initSrv.slug)) {
+      const idx = updated.findIndex(s => s.slug === initSrv.slug);
+      if (idx === -1) {
         updated.push(initSrv);
         changed = true;
+      } else {
+        // Sync updated initial prices and title/units
+        if (updated[idx].price !== initSrv.price || updated[idx].title !== initSrv.title || updated[idx].priceUnit !== initSrv.priceUnit) {
+          updated[idx] = { ...updated[idx], price: initSrv.price, title: initSrv.title, priceUnit: initSrv.priceUnit, description: initSrv.description };
+          changed = true;
+        }
       }
     });
 
