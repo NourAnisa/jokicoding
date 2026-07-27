@@ -24,13 +24,24 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
   const [programmingLanguage, setProgrammingLanguage] = useState('Next.js / React (TypeScript)');
   const [hostingPlatform, setHostingPlatform] = useState('Vercel (Gratis SSL/HTTPS)');
   const [pageCount, setPageCount] = useState<number>(1);
+  const [printType, setPrintType] = useState<'Hitam Putih' | 'Warna'>('Hitam Putih');
 
   const [copiedBank, setCopiedBank] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const isPrintService = Boolean(
+    service && (
+      service.slug === 'jasa-print' ||
+      service.title.toLowerCase().includes('print') ||
+      service.title.toLowerCase().includes('cetak')
+    )
+  );
+
   const isPageBasedService = Boolean(
     service && (
+      isPrintService ||
       service.priceUnit.includes('/halaman') ||
+      service.priceUnit.includes('/lembar') ||
       service.priceUnit.includes('/bab') ||
       service.priceUnit.includes('/artikel') ||
       service.priceUnit.includes('/slide') ||
@@ -44,9 +55,15 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
   const isCodingService = Boolean(service && (service.slug === 'jasa-ngoding' || service.category === 'IT & Web' && service.slug !== 'jasa-hosting'));
   const isHostingService = Boolean(service && service.slug === 'jasa-hosting');
 
+  const currentUnitPrice = service
+    ? isPrintService
+      ? (printType === 'Warna' ? 600 : 400)
+      : service.price
+    : 0;
+
   const calculatedTotalPrice = service
     ? isPageBasedService
-      ? service.price * Math.max(1, pageCount)
+      ? currentUnitPrice * Math.max(1, pageCount)
       : service.price
     : 0;
 
@@ -83,6 +100,7 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
         programmingLanguage: isCodingService ? programmingLanguage : undefined,
         hostingPlatform: isHostingService ? hostingPlatform : undefined,
         pageCount: isPageBasedService ? pageCount : undefined,
+        printType: isPrintService ? (printType === 'Warna' ? 'Cetak Warna (Rp 600/lembar)' : 'Hitam Putih (Rp 400/lembar)') : undefined,
       };
 
       const saved = saveOrder(orderPayload);
@@ -189,6 +207,56 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
                 <option value="C++ / Java / Algoritma & Struktur Data">C++ / Java / Algoritma & Data Structure</option>
                 <option value="HTML5 / CSS3 / JavaScript Vanilla">HTML5 / CSS3 / JS Vanilla</option>
               </select>
+            </div>
+          )}
+
+          {/* CUSTOM OPTION: Tipe Print untuk Jasa Cetak / Print */}
+          {isPrintService && (
+            <div>
+              <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                🖨️ Jenis Cetak / Print:
+              </label>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                <button
+                  type="button"
+                  onClick={() => setPrintType('Hitam Putih')}
+                  style={{
+                    padding: '10px 12px',
+                    borderRadius: 'var(--radius)',
+                    border: printType === 'Hitam Putih' ? '1.5px solid var(--ink)' : '1px solid var(--paper-3)',
+                    background: printType === 'Hitam Putih' ? 'var(--ink)' : 'var(--white)',
+                    color: printType === 'Hitam Putih' ? 'var(--paper)' : 'var(--ink-2)',
+                    cursor: 'pointer',
+                    fontSize: '0.83rem',
+                    fontWeight: 600,
+                    textAlign: 'left',
+                    transition: 'all 0.15s ease',
+                  }}
+                >
+                  <div>⬛⬜ Hitam Putih (BW)</div>
+                  <div style={{ fontSize: '0.73rem', opacity: 0.8 }}>Rp 400 / lembar</div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setPrintType('Warna')}
+                  style={{
+                    padding: '10px 12px',
+                    borderRadius: 'var(--radius)',
+                    border: printType === 'Warna' ? '1.5px solid var(--ink)' : '1px solid var(--paper-3)',
+                    background: printType === 'Warna' ? 'var(--ink)' : 'var(--white)',
+                    color: printType === 'Warna' ? 'var(--paper)' : 'var(--ink-2)',
+                    cursor: 'pointer',
+                    fontSize: '0.83rem',
+                    fontWeight: 600,
+                    textAlign: 'left',
+                    transition: 'all 0.15s ease',
+                  }}
+                >
+                  <div>🎨 Cetak Warna</div>
+                  <div style={{ fontSize: '0.73rem', opacity: 0.8 }}>Rp 600 / lembar</div>
+                </button>
+              </div>
             </div>
           )}
 

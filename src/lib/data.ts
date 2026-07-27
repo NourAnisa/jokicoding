@@ -244,6 +244,22 @@ export const INITIAL_SERVICES: Service[] = [
     rating: 4.94,
     reviewCount: 198,
     iconName: 'Video'
+  },
+  {
+    id: 'srv-13',
+    title: 'Jasa Cetak / Print Dokumen',
+    slug: 'jasa-print',
+    category: 'Akademik',
+    price: 400,
+    priceUnit: '/lembar',
+    description: 'Cetak / print tugas, makalah, & skripsi. Hitam Putih Rp 400/lembar & Warna Rp 600/lembar.',
+    fullDescription: 'Layanan cetak / print dokumen terpercaya untuk mahasiswa dan pelajar. Cetak tugas kuliah, laporan praktikum, makalah, hingga naskah skripsi dengan kualitas tinta tajam dan rapi. Pilihan cetak Hitam Putih (BW) Rp 400 / lembar dan Cetak Warna Rp 600 / lembar. Menggunakan kertas HVS 75/80 gsm premium.',
+    features: ['Hitam Putih: Rp 400 / lembar', 'Cetak Warna: Rp 600 / lembar', 'Kertas HVS 75/80 gsm Tajam & Rapi', 'Siap Jilid & Antar / Kirim'],
+    estimatedTime: '1 Hari',
+    popular: true,
+    rating: 4.96,
+    reviewCount: 340,
+    iconName: 'Printer'
   }
 ];
 
@@ -260,7 +276,15 @@ export function getServices(): Service[] {
       localStorage.setItem(LOCAL_STORAGE_SERVICES_KEY, JSON.stringify(INITIAL_SERVICES));
       return INITIAL_SERVICES;
     }
-    return JSON.parse(stored);
+    const parsed: Service[] = JSON.parse(stored);
+    // Ensure newly added initial services like jasa-print are included
+    const hasPrint = parsed.some(s => s.slug === 'jasa-print');
+    if (!hasPrint) {
+      const updated = [...parsed, INITIAL_SERVICES.find(s => s.slug === 'jasa-print')!];
+      localStorage.setItem(LOCAL_STORAGE_SERVICES_KEY, JSON.stringify(updated));
+      return updated;
+    }
+    return parsed;
   } catch {
     return INITIAL_SERVICES;
   }

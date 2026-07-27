@@ -36,8 +36,11 @@ export function generateWhatsAppLink(
   if (order.hostingPlatform) {
     customDetailsText += `• *Jenis Hosting*: ${order.hostingPlatform}\n`;
   }
+  if (order.printType) {
+    customDetailsText += `• *Jenis Print*: ${order.printType}\n`;
+  }
   if (order.pageCount && order.pageCount > 0) {
-    customDetailsText += `• *Jumlah Halaman* : ${order.pageCount} Halaman\n`;
+    customDetailsText += `• *Jumlah Halaman/Lembar*: ${order.pageCount} Lembar\n`;
   }
 
   const text = `Halo Admin *JokiCoding*, saya ingin memesan jasa berikut:

@@ -44,7 +44,8 @@ export interface Order {
   // Dynamic Custom Options per Jasa
   programmingLanguage?: string; // Jasa Ngoding
   hostingPlatform?: string;     // Jasa Hosting
-  pageCount?: number;           // Jasa Menulis/Pengetikan/Tulis Tangan
+  pageCount?: number;           // Jasa Menulis/Pengetikan/Tulis Tangan/Print
+  printType?: string;           // Jasa Cetak/Print (Hitam Putih / Warna)
 }
 
 export interface SiteConfig {
