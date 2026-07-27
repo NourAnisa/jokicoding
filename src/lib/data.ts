@@ -234,7 +234,7 @@ export const INITIAL_SERVICES: Service[] = [
     title: 'Jasa Edit Video (TikTok, Reels, Youtube)',
     slug: 'edit-video',
     category: 'Multimedia',
-    price: 50000,
+    price: 75000,
     priceUnit: '/menit',
     description: 'Editing video konten TikTok/Reels, video presentasi, tugas perkuliahan, subtitling & sound effect.',
     fullDescription: 'Layanan penyuntingan video profesional menggunakan Adobe Premiere Pro & CapCut Pro. Meliputi pemotongan klip (trimming), efek transisi sinematik, efek suara (SFX), background music bebas hak cipta, penambahan subtitle/teks dinamis, dan color grading.',
@@ -345,6 +345,14 @@ export function getServices(): Service[] {
     // Ensure newly added initial services (like paket terima beres & print) exist
     let updated = [...parsed];
     let changed = false;
+
+    // Sync srv-12 (edit-video) price update if cached as 50000
+    const editVideoIndex = updated.findIndex(s => s.slug === 'edit-video');
+    if (editVideoIndex !== -1 && updated[editVideoIndex].price === 50000) {
+      updated[editVideoIndex].price = 75000;
+      changed = true;
+    }
+
     INITIAL_SERVICES.forEach(initSrv => {
       if (!updated.some(s => s.slug === initSrv.slug)) {
         updated.push(initSrv);
