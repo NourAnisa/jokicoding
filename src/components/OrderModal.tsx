@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Service, PaymentMethod } from '@/types';
 import { DEFAULT_SITE_CONFIG, saveOrder } from '@/lib/data';
 import { generateWhatsAppLink, formatCurrency } from '@/lib/whatsapp';
+import { SPSS_TEST_LIST } from '@/lib/spssData';
 import { X, QrCode, CreditCard, Banknote, ArrowRight, ShieldCheck, Copy, Check, Code, Server, FileText, Plus, Minus } from 'lucide-react';
 
 interface OrderModalProps {
@@ -25,6 +26,7 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
   const [hostingPlatform, setHostingPlatform] = useState('Vercel (Gratis SSL/HTTPS)');
   const [pageCount, setPageCount] = useState<number>(1);
   const [printType, setPrintType] = useState<'Hitam Putih' | 'Warna'>('Hitam Putih');
+  const [selectedSPSSTestId, setSelectedSPSSTestId] = useState<string>('spss-1');
 
   const [copiedBank, setCopiedBank] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -37,8 +39,15 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
     )
   );
 
-  const isPageBasedService = Boolean(
+  const isSPSSService = Boolean(
     service && (
+      service.slug === 'olah-data-spss' ||
+      service.title.toLowerCase().includes('spss')
+    )
+  );
+
+  const isPageBasedService = Boolean(
+    service && !isSPSSService && (
       isPrintService ||
       service.priceUnit.includes('/halaman') ||
       service.priceUnit.includes('/lembar') ||
@@ -47,22 +56,27 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
       service.priceUnit.includes('/slide') ||
       service.slug.includes('tulis-tangan') ||
       service.slug.includes('pengetikan') ||
-      service.slug.includes('makalah') ||
-      service.slug.includes('skripsi')
+      service.slug.includes('makalah')
     )
   );
 
   const isCodingService = Boolean(service && (service.slug === 'jasa-ngoding' || service.category === 'IT & Web' && service.slug !== 'jasa-hosting'));
   const isHostingService = Boolean(service && service.slug === 'jasa-hosting');
 
+  const selectedSPSSTestObj = SPSS_TEST_LIST.find(t => t.id === selectedSPSSTestId);
+
   const currentUnitPrice = service
     ? isPrintService
       ? (printType === 'Warna' ? 800 : 400)
+      : isSPSSService && selectedSPSSTestObj
+      ? selectedSPSSTestObj.price
       : service.price
     : 0;
 
   const calculatedTotalPrice = service
-    ? isPageBasedService
+    ? isSPSSService && selectedSPSSTestObj
+      ? selectedSPSSTestObj.price
+      : isPageBasedService
       ? currentUnitPrice * Math.max(1, pageCount)
       : service.price
     : 0;
@@ -101,6 +115,7 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
         hostingPlatform: isHostingService ? hostingPlatform : undefined,
         pageCount: isPageBasedService ? pageCount : undefined,
         printType: isPrintService ? (printType === 'Warna' ? 'Cetak Warna (Rp 800/lembar)' : 'Hitam Putih (Rp 400/lembar)') : undefined,
+        spssTest: isSPSSService && selectedSPSSTestObj ? `${selectedSPSSTestObj.name} [${selectedSPSSTestObj.scope}] - ${formatCurrency(selectedSPSSTestObj.price)}` : undefined,
       };
 
       const saved = saveOrder(orderPayload);
@@ -188,6 +203,31 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
         </div>
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+
+          {/* CUSTOM OPTION: Pilihan Uji SPSS */}
+          {isSPSSService && (
+            <div>
+              <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                📊 Pilih Jenis Uji / Paket Analisis SPSS:
+              </label>
+              <select
+                value={selectedSPSSTestId}
+                onChange={(e) => setSelectedSPSSTestId(e.target.value)}
+                className="form-select"
+                style={{ fontSize: '0.85rem' }}
+              >
+                {(['Uji Dasar & Asumsi', 'Korelasi & Bivariat', 'Regresi & Instrumen', 'Paket & Multivariat Kompleks'] as const).map(cat => (
+                  <optgroup key={cat} label={`── ${cat.toUpperCase()} ──`}>
+                    {SPSS_TEST_LIST.filter(t => t.category === cat).map(t => (
+                      <option key={t.id} value={t.id}>
+                        {t.name} ({t.scope}) — {formatCurrency(t.price)}
+                      </option>
+                    ))}
+                  </optgroup>
+                ))}
+              </select>
+            </div>
+          )}
 
           {/* CUSTOM OPTION 1: Bahasa Pemrograman for Jasa Ngoding */}
           {isCodingService && (

@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { INITIAL_SERVICES } from '@/lib/data';
 import { formatCurrency } from '@/lib/whatsapp';
 import DetailPageClient from './DetailPageClient';
+import SPSSTable from './SPSSTable';
 import { ChevronRight, ShieldCheck, Star, Clock, CheckCircle2, ArrowLeft } from 'lucide-react';
 
 interface PageProps {
@@ -152,6 +153,10 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 </div>
               ))}
             </div>
+
+            {(service.slug === 'olah-data-spss' || service.slug === 'jasa-skripsi') && (
+              <SPSSTable />
+            )}
           </div>
 
           {/* Right Pricing Card & Order Client Trigger */}

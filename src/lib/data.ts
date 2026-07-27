@@ -324,6 +324,22 @@ export const INITIAL_SERVICES: Service[] = [
     rating: 5.0,
     reviewCount: 48,
     iconName: 'Award'
+  },
+  {
+    id: 'srv-18',
+    title: 'Jasa Olah Data SPSS & Analisis Statistik',
+    slug: 'olah-data-spss',
+    category: 'Akademik',
+    price: 100000,
+    priceUnit: '/uji',
+    description: 'Jasa olah data SPSS lengkap 90+ uji: Deskriptif, Normalitas, Regresi, ANOVA, EFA, Chi-Square, MANOVA, ARIMA, dll.',
+    fullDescription: 'Layanan spesialis pengolahan data statistik menggunakan SPSS untuk skripsi, tesis, disertasi, dan riset. Menyediakan lebih dari 90 jenis uji statistik lengkap dari uji dasar (Deskriptif, Normalitas, Homogenitas Rp 100rb), uji korelasi & regresi (Rp 200rb-350rb), EFA & Validitas (Rp 250rb-400rb), Paket Olah Data Lengkap (Rp 650rb), hingga analisis multivariat & time series (MANOVA, Cluster, ARIMA, Survival Analysis Rp 600rb-1.500rb). Termasuk interpretasi output SPSS, tabel siap cetak/lampiran, dan penjelasan bimbingan.',
+    features: ['90+ Pilihan Uji SPSS Lengkap', 'Output SPSS (.spv & .doc) + Lampiran', 'Interpretasi Hasil & Penjelasan Pembahasan', 'Garansi Revisi Uji & Bimbingan Sidang'],
+    estimatedTime: '1-3 Hari',
+    popular: true,
+    rating: 4.99,
+    reviewCount: 310,
+    iconName: 'BookOpenCheck'
   }
 ];
 

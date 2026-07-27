@@ -46,6 +46,7 @@ export interface Order {
   hostingPlatform?: string;     // Jasa Hosting
   pageCount?: number;           // Jasa Menulis/Pengetikan/Tulis Tangan/Print
   printType?: string;           // Jasa Cetak/Print (Hitam Putih / Warna)
+  spssTest?: string;            // Jasa Olah Data SPSS
 }
 
 export interface SiteConfig {

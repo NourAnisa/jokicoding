@@ -39,6 +39,9 @@ export function generateWhatsAppLink(
   if (order.printType) {
     customDetailsText += `• *Jenis Print*: ${order.printType}\n`;
   }
+  if (order.spssTest) {
+    customDetailsText += `• *Jenis Uji SPSS*: ${order.spssTest}\n`;
+  }
   if (order.pageCount && order.pageCount > 0) {
     customDetailsText += `• *Jumlah Halaman/Lembar*: ${order.pageCount} Lembar\n`;
   }
