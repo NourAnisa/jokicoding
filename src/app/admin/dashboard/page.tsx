@@ -10,7 +10,7 @@ import {
   getSiteConfig, saveSiteConfig
 } from '@/lib/data';
 import { formatCurrency } from '@/lib/whatsapp';
-import { saveAdminPin, verifyAdminPin } from '@/lib/auth';
+import { saveAdminPin, verifyAdminPin, isSessionValid, destroySession } from '@/lib/auth';
 import {
   ShieldCheck, Plus, Trash2, Edit, LogOut,
   Package, ShoppingBag, Settings, Building2, Save, Lock, KeyRound
@@ -60,8 +60,8 @@ export default function AdminDashboardPage() {
       setPinChangeMsg({ text: 'Password Admin saat ini salah!', error: true });
       return;
     }
-    if (newPinInput.length < 4) {
-      setPinChangeMsg({ text: 'Password Baru minimal harus 4 karakter!', error: true });
+    if (newPinInput.length < 6) {
+      setPinChangeMsg({ text: 'Password Baru minimal harus 6 karakter!', error: true });
       return;
     }
     if (newPinInput !== confirmPinInput) {
@@ -77,8 +77,7 @@ export default function AdminDashboardPage() {
   };
 
   useEffect(() => {
-    const isAuth = sessionStorage.getItem('jokicoding_admin_authenticated');
-    if (!isAuth) {
+    if (!isSessionValid()) {
       router.push('/admin/login');
       return;
     }
@@ -89,7 +88,7 @@ export default function AdminDashboardPage() {
   }, [router]);
 
   const handleLogout = () => {
-    sessionStorage.removeItem('jokicoding_admin_authenticated');
+    destroySession();
     router.push('/admin/login');
   };
 
@@ -545,7 +544,7 @@ export default function AdminDashboardPage() {
                   <input
                     type="password"
                     required
-                    placeholder="Masukkan password baru (min. 4 karakter)"
+                    placeholder="Masukkan password baru (min. 6 karakter)"
                     value={newPinInput}
                     onChange={(e) => setNewPinInput(e.target.value)}
                     className="form-input"

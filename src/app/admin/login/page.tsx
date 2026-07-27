@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { verifyAdminPin, isLockedOut, recordFailedAttempt, resetFailedAttempts } from '@/lib/auth';
+import { verifyAdminPin, isLockedOut, recordFailedAttempt, resetFailedAttempts, createSession } from '@/lib/auth';
 import { ShieldCheck, Lock, ArrowRight, AlertTriangle } from 'lucide-react';
 
 export default function AdminLoginPage() {
@@ -46,7 +46,7 @@ export default function AdminLoginPage() {
 
     if (verifyAdminPin(pin)) {
       resetFailedAttempts();
-      sessionStorage.setItem('jokicoding_admin_authenticated', 'true');
+      createSession();
       router.push('/admin/dashboard');
     } else {
       const attempt = recordFailedAttempt();
