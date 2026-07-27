@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Service, PaymentMethod } from '@/types';
 import { DEFAULT_SITE_CONFIG, saveOrder } from '@/lib/data';
 import { generateWhatsAppLink, formatCurrency } from '@/lib/whatsapp';
@@ -27,7 +27,6 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
   const [copiedBank, setCopiedBank] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Determine if service is page/unit based
   const isPageBasedService = Boolean(
     service && (
       service.priceUnit.includes('/halaman') ||
@@ -44,7 +43,6 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
   const isCodingService = Boolean(service && (service.slug === 'jasa-ngoding' || service.category === 'IT & Web' && service.slug !== 'jasa-hosting'));
   const isHostingService = Boolean(service && service.slug === 'jasa-hosting');
 
-  // Calculate dynamic total price
   const calculatedTotalPrice = service
     ? isPageBasedService
       ? service.price * Math.max(1, pageCount)
@@ -105,105 +103,88 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
 
   return (
     <div style={{
-      position: 'fixed',
-      inset: 0,
-      zIndex: 100,
-      backgroundColor: 'rgba(15, 23, 42, 0.65)',
-      backdropFilter: 'blur(8px)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '20px'
+      position: 'fixed', inset: 0, zIndex: 200,
+      background: 'rgba(0, 0, 0, 0.65)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      padding: '20px',
     }}>
-      <div className="glass-panel" style={{
-        maxWidth: '600px',
-        width: '100%',
-        maxHeight: '92vh',
+      <div style={{
+        background: 'var(--white)',
+        color: 'var(--ink)',
+        border: '1px solid var(--paper-3)',
+        borderRadius: 'var(--radius-lg)',
+        maxWidth: '560px', width: '100%',
+        maxHeight: '90vh',
         overflowY: 'auto',
-        backgroundColor: 'var(--bg-secondary)',
         padding: '28px',
+        boxShadow: 'var(--shadow-md)',
         position: 'relative',
-        borderRadius: 'var(--radius-lg)'
       }}>
         {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '20px' }}>
           <div>
-            <span className="badge badge-emerald" style={{ marginBottom: '6px' }}>Formulir Pemesanan Custom</span>
-            <h3 style={{ fontSize: '1.25rem', color: 'var(--text-main)' }}>{service.title}</h3>
+            <span className="tag tag-green" style={{ marginBottom: '6px' }}>Form Pemesanan</span>
+            <h3 style={{ fontSize: '1.2rem', fontWeight: 600, color: 'var(--ink)' }}>{service.title}</h3>
           </div>
           <button
             onClick={onClose}
             style={{
-              background: 'var(--bg-card-hover)',
-              border: '1px solid var(--border-color)',
-              color: 'var(--text-muted)',
+              background: 'var(--paper-2)',
+              border: '1px solid var(--paper-3)',
+              color: 'var(--ink-2)',
               padding: '6px',
-              borderRadius: '8px',
-              cursor: 'pointer'
+              borderRadius: 'var(--radius)',
+              cursor: 'pointer',
             }}
           >
-            <X size={20} />
+            <X size={18} />
           </button>
         </div>
 
-        {/* Pricing Notice */}
+        {/* Total Price Notice */}
         <div style={{
-          backgroundColor: 'var(--badge-indigo-bg)',
-          border: '1px solid rgba(79, 70, 229, 0.25)',
-          borderRadius: '12px',
+          background: 'var(--paper-2)',
+          border: '1px solid var(--paper-3)',
+          borderRadius: 'var(--radius)',
           padding: '16px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          marginBottom: '20px'
+          marginBottom: '20px',
         }}>
           <div>
-            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Estimasi Total Biaya</span>
-            <div style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--price-color)' }}>
+            <span style={{ fontSize: '0.78rem', color: 'var(--ink-3)' }}>Estimasi Total Biaya</span>
+            <div className="price" style={{ fontSize: '1.4rem' }}>
               {formatCurrency(calculatedTotalPrice)}
               {isPageBasedService && (
-                <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 500 }}>
+                <span style={{ fontSize: '0.8rem', color: 'var(--ink-3)', fontWeight: 400 }}>
                   {' '}({pageCount} × {formatCurrency(service.price)})
                 </span>
               )}
             </div>
           </div>
-          <div style={{ textAlign: 'right', fontSize: '0.8rem', color: 'var(--accent-indigo)' }}>
-            ⚡ Estimasi: <strong>{service.estimatedTime}</strong>
+          <div style={{ textAlign: 'right', fontSize: '0.8rem', color: 'var(--ink-3)' }}>
+            ⚡ Estimasi: <strong style={{ color: 'var(--ink)' }}>{service.estimatedTime}</strong>
           </div>
         </div>
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+
           {/* CUSTOM OPTION 1: Bahasa Pemrograman for Jasa Ngoding */}
           {isCodingService && (
-            <div style={{
-              backgroundColor: 'var(--bg-primary)',
-              border: '1px solid var(--border-color)',
-              borderRadius: '12px',
-              padding: '14px'
-            }}>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '8px' }}>
-                <Code size={16} color="var(--accent-indigo)" /> Pilih Bahasa Pemrograman / Framework:
+            <div>
+              <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <Code size={15} color="var(--blue)" /> Bahasa Pemrograman / Framework:
               </label>
               <select
                 value={programmingLanguage}
                 onChange={(e) => setProgrammingLanguage(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '10px 12px',
-                  borderRadius: '8px',
-                  backgroundColor: 'var(--bg-secondary)',
-                  border: '1px solid var(--border-color)',
-                  color: 'var(--text-main)',
-                  outline: 'none',
-                  fontSize: '0.88rem',
-                  fontWeight: 600
-                }}
+                className="form-select"
               >
                 <option value="Next.js / React (TypeScript)">Next.js / React (TypeScript / JS)</option>
                 <option value="PHP / Laravel / CodeIgniter">PHP / Laravel / CodeIgniter</option>
                 <option value="Python / Django / Bot Script">Python / Django / FastApi / Bot Script</option>
-                <option value="Node.js / Express / REST API">Node.js / Express / NestJS</option>
+                <option value="Node.js / Express / NestJS">Node.js / Express / NestJS</option>
                 <option value="C++ / Java / Algoritma & Struktur Data">C++ / Java / Algoritma & Data Structure</option>
                 <option value="HTML5 / CSS3 / JavaScript Vanilla">HTML5 / CSS3 / JS Vanilla</option>
               </select>
@@ -212,29 +193,14 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
 
           {/* CUSTOM OPTION 2: Platform Hosting for Jasa Hosting */}
           {isHostingService && (
-            <div style={{
-              backgroundColor: 'var(--bg-primary)',
-              border: '1px solid var(--border-color)',
-              borderRadius: '12px',
-              padding: '14px'
-            }}>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '8px' }}>
-                <Server size={16} color="var(--accent-emerald)" /> Pilih Jenis Hosting / Platform Server:
+            <div>
+              <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <Server size={15} color="var(--green)" /> Jenis Hosting / Platform Server:
               </label>
               <select
                 value={hostingPlatform}
                 onChange={(e) => setHostingPlatform(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '10px 12px',
-                  borderRadius: '8px',
-                  backgroundColor: 'var(--bg-secondary)',
-                  border: '1px solid var(--border-color)',
-                  color: 'var(--text-main)',
-                  outline: 'none',
-                  fontSize: '0.88rem',
-                  fontWeight: 600
-                }}
+                className="form-select"
               >
                 <option value="Vercel (Gratis SSL & CDN)">Vercel Deployment (Gratis SSL & CDN)</option>
                 <option value="Netlify (Gratis Hosting)">Netlify Deployment (Gratis)</option>
@@ -245,73 +211,38 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
             </div>
           )}
 
-          {/* CUSTOM OPTION 3: Jumlah Halaman/Unit for Page-based services */}
+          {/* CUSTOM OPTION 3: Jumlah Halaman */}
           {isPageBasedService && (
-            <div style={{
-              backgroundColor: 'var(--bg-primary)',
-              border: '1px solid var(--border-color)',
-              borderRadius: '12px',
-              padding: '14px'
-            }}>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '8px' }}>
-                <FileText size={16} color="var(--accent-amber)" /> Jumlah Halaman / Unit:
+            <div>
+              <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <FileText size={15} color="var(--orange)" /> Jumlah Halaman / Unit:
               </label>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <button
                   type="button"
                   onClick={() => setPageCount(Math.max(1, pageCount - 1))}
-                  style={{
-                    width: '36px',
-                    height: '36px',
-                    borderRadius: '8px',
-                    border: '1px solid var(--border-color)',
-                    backgroundColor: 'var(--bg-secondary)',
-                    color: 'var(--text-main)',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
+                  className="btn btn-outline btn-sm"
+                  style={{ width: '36px', height: '36px', padding: 0, justifyContent: 'center' }}
                 >
-                  <Minus size={16} />
+                  <Minus size={14} />
                 </button>
                 <input
                   type="number"
                   min={1}
                   value={pageCount}
                   onChange={(e) => setPageCount(Math.max(1, parseInt(e.target.value) || 1))}
-                  style={{
-                    width: '90px',
-                    textAlign: 'center',
-                    padding: '8px',
-                    borderRadius: '8px',
-                    backgroundColor: 'var(--bg-secondary)',
-                    border: '1px solid var(--border-color)',
-                    color: 'var(--text-main)',
-                    fontWeight: 700,
-                    fontSize: '1rem',
-                    outline: 'none'
-                  }}
+                  className="form-input"
+                  style={{ width: '80px', textAlign: 'center', fontWeight: 700 }}
                 />
                 <button
                   type="button"
                   onClick={() => setPageCount(pageCount + 1)}
-                  style={{
-                    width: '36px',
-                    height: '36px',
-                    borderRadius: '8px',
-                    border: '1px solid var(--border-color)',
-                    backgroundColor: 'var(--bg-secondary)',
-                    color: 'var(--text-main)',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
+                  className="btn btn-outline btn-sm"
+                  style={{ width: '36px', height: '36px', padding: 0, justifyContent: 'center' }}
                 >
-                  <Plus size={16} />
+                  <Plus size={14} />
                 </button>
-                <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                <span style={{ fontSize: '0.83rem', color: 'var(--ink-3)' }}>
                   Halaman / Slide / Bab
                 </span>
               </div>
@@ -320,8 +251,8 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
 
           {/* Customer Name */}
           <div>
-            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-main)', marginBottom: '6px' }}>
-              Nama Lengkap <span style={{ color: '#ef4444' }}>*</span>
+            <label className="form-label">
+              Nama Lengkap <span style={{ color: '#dc2626' }}>*</span>
             </label>
             <input
               type="text"
@@ -329,22 +260,14 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
               placeholder="Contoh: Budi Santoso"
               value={customerName}
               onChange={(e) => setCustomerName(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '12px 14px',
-                borderRadius: '8px',
-                backgroundColor: 'var(--bg-primary)',
-                border: '1px solid var(--border-color)',
-                color: 'var(--text-main)',
-                outline: 'none'
-              }}
+              className="form-input"
             />
           </div>
 
           {/* Customer Phone */}
           <div>
-            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-main)', marginBottom: '6px' }}>
-              Nomor WhatsApp Active <span style={{ color: '#ef4444' }}>*</span>
+            <label className="form-label">
+              Nomor WhatsApp Active <span style={{ color: '#dc2626' }}>*</span>
             </label>
             <input
               type="tel"
@@ -352,163 +275,112 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
               placeholder="Contoh: 08123456789"
               value={customerPhone}
               onChange={(e) => setCustomerPhone(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '12px 14px',
-                borderRadius: '8px',
-                backgroundColor: 'var(--bg-primary)',
-                border: '1px solid var(--border-color)',
-                color: 'var(--text-main)',
-                outline: 'none'
-              }}
+              className="form-input"
             />
           </div>
 
           {/* Target Deadline */}
           <div>
-            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-main)', marginBottom: '6px' }}>
-              Target Tanggal Selesai (Deadline)
-            </label>
+            <label className="form-label">Target Tanggal Selesai (Deadline)</label>
             <input
               type="text"
               placeholder="Contoh: Besok sore / 30 Juli 2026"
               value={deadline}
               onChange={(e) => setDeadline(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '12px 14px',
-                borderRadius: '8px',
-                backgroundColor: 'var(--bg-primary)',
-                border: '1px solid var(--border-color)',
-                color: 'var(--text-main)',
-                outline: 'none'
-              }}
+              className="form-input"
             />
           </div>
 
           {/* Payment Method Selector */}
           <div>
-            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-main)', marginBottom: '8px' }}>
-              Pilih Metode Pembayaran <span style={{ color: '#ef4444' }}>*</span>
+            <label className="form-label">
+              Pilih Metode Pembayaran <span style={{ color: '#dc2626' }}>*</span>
             </label>
-
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
-              <button
-                type="button"
-                onClick={() => setPaymentMethod('qris_gopay')}
-                style={{
-                  padding: '12px 8px',
-                  borderRadius: '10px',
-                  border: paymentMethod === 'qris_gopay' ? '2px solid var(--accent-emerald)' : '1px solid var(--border-color)',
-                  backgroundColor: paymentMethod === 'qris_gopay' ? 'var(--badge-emerald-bg)' : 'var(--bg-primary)',
-                  color: paymentMethod === 'qris_gopay' ? 'var(--badge-emerald-text)' : 'var(--text-muted)',
-                  cursor: 'pointer',
-                  textAlign: 'center',
-                  fontSize: '0.8rem',
-                  fontWeight: 600
-                }}
-              >
-                <QrCode size={20} style={{ margin: '0 auto 4px auto' }} />
-                <div>GoPay / QRIS</div>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setPaymentMethod('transfer_bank')}
-                style={{
-                  padding: '12px 8px',
-                  borderRadius: '10px',
-                  border: paymentMethod === 'transfer_bank' ? '2px solid var(--accent-indigo)' : '1px solid var(--border-color)',
-                  backgroundColor: paymentMethod === 'transfer_bank' ? 'var(--badge-indigo-bg)' : 'var(--bg-primary)',
-                  color: paymentMethod === 'transfer_bank' ? 'var(--badge-indigo-text)' : 'var(--text-muted)',
-                  cursor: 'pointer',
-                  textAlign: 'center',
-                  fontSize: '0.8rem',
-                  fontWeight: 600
-                }}
-              >
-                <CreditCard size={20} style={{ margin: '0 auto 4px auto' }} />
-                <div>Transfer Bank</div>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setPaymentMethod('cash')}
-                style={{
-                  padding: '12px 8px',
-                  borderRadius: '10px',
-                  border: paymentMethod === 'cash' ? '2px solid var(--accent-amber)' : '1px solid var(--border-color)',
-                  backgroundColor: paymentMethod === 'cash' ? 'var(--badge-amber-bg)' : 'var(--bg-primary)',
-                  color: paymentMethod === 'cash' ? 'var(--badge-amber-text)' : 'var(--text-muted)',
-                  cursor: 'pointer',
-                  textAlign: 'center',
-                  fontSize: '0.8rem',
-                  fontWeight: 600
-                }}
-              >
-                <Banknote size={20} style={{ margin: '0 auto 4px auto' }} />
-                <div>Bayar Nanti</div>
-              </button>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px' }}>
+              {[
+                { key: 'qris_gopay', label: 'GoPay / QRIS', icon: QrCode },
+                { key: 'transfer_bank', label: 'Transfer Bank', icon: CreditCard },
+                { key: 'cash', label: 'Bayar Nanti', icon: Banknote },
+              ].map(({ key, label, icon: Icon }) => (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => setPaymentMethod(key as PaymentMethod)}
+                  style={{
+                    padding: '12px 8px',
+                    borderRadius: 'var(--radius)',
+                    border: paymentMethod === key ? '1.5px solid var(--ink)' : '1px solid var(--paper-3)',
+                    background: paymentMethod === key ? 'var(--ink)' : 'var(--white)',
+                    color: paymentMethod === key ? 'var(--paper)' : 'var(--ink-2)',
+                    cursor: 'pointer',
+                    textAlign: 'center',
+                    fontSize: '0.8rem',
+                    fontWeight: 600,
+                    transition: 'all 0.15s ease',
+                  }}
+                >
+                  <Icon size={18} style={{ margin: '0 auto 4px' }} />
+                  <div>{label}</div>
+                </button>
+              ))}
             </div>
           </div>
 
-          {/* Conditional Payment Details */}
+          {/* QRIS / Bank Details */}
           {paymentMethod === 'qris_gopay' && (
             <div style={{
-              backgroundColor: 'var(--badge-emerald-bg)',
-              border: '1px solid rgba(5, 150, 105, 0.3)',
-              borderRadius: '12px',
+              background: 'var(--paper-2)',
+              border: '1px solid var(--paper-3)',
+              borderRadius: 'var(--radius)',
               padding: '16px',
-              textAlign: 'center'
+              textAlign: 'center',
             }}>
-              <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--badge-emerald-text)', marginBottom: '8px' }}>
+              <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--ink)', marginBottom: '8px' }}>
                 📲 Scan Kode QRIS (GoPay / OVO / DANA / M-Banking)
               </div>
               <img
                 src={DEFAULT_SITE_CONFIG.qrisImageUrl}
                 alt="QRIS Payment Code"
                 style={{
-                  width: '180px',
-                  height: '180px',
-                  margin: '0 auto 10px auto',
-                  borderRadius: '12px',
-                  backgroundColor: '#ffffff',
+                  width: '170px', height: '170px',
+                  margin: '0 auto 10px',
+                  borderRadius: 'var(--radius)',
+                  background: '#ffffff',
                   padding: '8px',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.08)'
+                  border: '1px solid var(--paper-3)',
                 }}
               />
-              <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-                Buka aplikasi GoPay atau Mobile Banking Anda lalu scan QRIS di atas. Bukti pembayaran dapat dilampirkan langsung saat obrolan WhatsApp dibuka.
+              <p style={{ fontSize: '0.78rem', color: 'var(--ink-3)' }}>
+                Buka aplikasi GoPay atau M-Banking lalu scan QRIS di atas. Bukti pembayaran dilampirkan saat chat WhatsApp dibuka.
               </p>
             </div>
           )}
 
           {paymentMethod === 'transfer_bank' && DEFAULT_SITE_CONFIG.bankInfo && (
             <div style={{
-              backgroundColor: 'var(--badge-indigo-bg)',
-              border: '1px solid rgba(79, 70, 229, 0.3)',
-              borderRadius: '12px',
-              padding: '14px'
+              background: 'var(--paper-2)',
+              border: '1px solid var(--paper-3)',
+              borderRadius: 'var(--radius)',
+              padding: '14px',
             }}>
-              <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--badge-indigo-text)', marginBottom: '6px' }}>
+              <div style={{ fontSize: '0.83rem', fontWeight: 600, color: 'var(--ink)', marginBottom: '6px' }}>
                 🏦 Rekening Bank Resmi JokiCoding
               </div>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <div>
-                  <div style={{ fontSize: '0.9rem', fontWeight: 800, color: 'var(--text-main)' }}>
+                  <div style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--ink)' }}>
                     {DEFAULT_SITE_CONFIG.bankInfo.bankName} - {DEFAULT_SITE_CONFIG.bankInfo.accountNumber}
                   </div>
-                  <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
+                  <div style={{ fontSize: '0.78rem', color: 'var(--ink-3)' }}>
                     a.n {DEFAULT_SITE_CONFIG.bankInfo.accountHolder}
                   </div>
                 </div>
                 <button
                   type="button"
                   onClick={handleCopyBank}
-                  className="btn-secondary"
-                  style={{ padding: '6px 12px', fontSize: '0.75rem' }}
+                  className="btn btn-outline btn-sm"
                 >
-                  {copiedBank ? <Check size={14} color="var(--accent-emerald)" /> : <Copy size={14} />}
+                  {copiedBank ? <Check size={13} color="var(--green)" /> : <Copy size={13} />}
                   <span>{copiedBank ? 'Tersalin' : 'Salin'}</span>
                 </button>
               </div>
@@ -517,44 +389,33 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
 
           {/* Notes */}
           <div>
-            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-main)', marginBottom: '6px' }}>
-              Catatan / Instruksi Pengerjaan (Opsional)
-            </label>
+            <label className="form-label">Catatan / Instruksi Pengerjaan (Opsional)</label>
             <textarea
               rows={3}
-              placeholder="Contoh: Tolong buatkan makalah 10 halaman tentang AI, atau lampirkan instruksi dosen..."
+              placeholder="Contoh: Tolong buatkan makalah 10 halaman tentang AI..."
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '12px 14px',
-                borderRadius: '8px',
-                backgroundColor: 'var(--bg-primary)',
-                border: '1px solid var(--border-color)',
-                color: 'var(--text-main)',
-                outline: 'none',
-                resize: 'vertical'
-              }}
+              className="form-textarea"
             />
           </div>
 
-          {/* Submit Button */}
+          {/* Submit */}
           <button
             type="submit"
             disabled={isSubmitting}
-            className="btn-whatsapp"
+            className="btn btn-wa"
             style={{
               width: '100%',
               justifyContent: 'center',
-              padding: '14px',
-              fontSize: '1rem',
-              marginTop: '8px'
+              padding: '13px',
+              fontSize: '0.95rem',
+              marginTop: '4px',
             }}
           >
-            {isSubmitting ? 'Memproses...' : 'Kirim Pesanan ke WhatsApp Admin'} <ArrowRight size={18} />
+            {isSubmitting ? 'Memproses...' : 'Kirim Pesanan ke WhatsApp Admin'} <ArrowRight size={17} />
           </button>
 
-          <p style={{ fontSize: '0.75rem', color: 'var(--text-subtle)', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}>
+          <p style={{ fontSize: '0.75rem', color: 'var(--ink-4)', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}>
             <ShieldCheck size={14} /> Privasi identitas & file tugas 100% dijamin aman.
           </p>
         </form>
