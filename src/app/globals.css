@@ -1,0 +1,355 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap');
+
+/*
+  JOKICODING — DESIGN SYSTEM v4
+  Direction: Editorial Premium
+  Inspired by: Xendit, Vercel, Linear, Stripe
+  Rule: NO gradient bg, NO glassmorphism, NO pill badges everywhere
+  Colors: Off-white + Near-black + ONE bold orange accent
+*/
+
+:root {
+  /* Core */
+  --ink:         #0c0c0b;
+  --ink-2:       #3d3d3a;
+  --ink-3:       #72726e;
+  --ink-4:       #a8a8a3;
+
+  --paper:       #fafaf8;
+  --paper-2:     #f3f2ee;
+  --paper-3:     #e8e7e2;
+
+  --white:       #ffffff;
+
+  /* ONE accent */
+  --orange:      #e05c2a;
+  --orange-light: #fdf0ea;
+  --orange-border: #f5c4ab;
+
+  /* Semantic */
+  --green:       #16a34a;
+  --green-light: #dcfce7;
+  --blue:        #1d4ed8;
+  --blue-light:  #dbeafe;
+  --wa:          #25d366;
+
+  /* Typography */
+  --font-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --font-sans:  'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Spacing */
+  --max-w: 1160px;
+
+  /* Border */
+  --radius: 8px;
+  --radius-lg: 14px;
+
+  /* Shadows — subtle and real */
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.07);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.09);
+
+  /* Transitions */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Dark Mode */
+[data-theme="dark"] {
+  --ink:   #f0f0ee;
+  --ink-2: #c0bfbb;
+  --ink-3: #8a8a85;
+  --ink-4: #555550;
+
+  --paper:   #111110;
+  --paper-2: #1a1a18;
+  --paper-3: #242422;
+
+  --white: #1a1a18;
+
+  --orange-light: #1f1008;
+  --orange-border: #5a2510;
+
+  --green-light: #052e16;
+  --blue-light:  #1e3a5f;
+
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+/* =========================================
+   RESET
+   ========================================= */
+*, *::before, *::after {
+  box-sizing: border-box; margin: 0; padding: 0;
+}
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body {
+  font-family: var(--font-sans);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.6;
+  transition: background 0.25s ease, color 0.25s ease;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font-family: inherit; }
+img { max-width: 100%; }
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--paper-3); border-radius: 3px; }
+
+/* =========================================
+   LAYOUT
+   ========================================= */
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+/* =========================================
+   TYPOGRAPHY SCALE
+   ========================================= */
+.display {
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.display em {
+  font-style: italic;
+  color: var(--orange);
+}
+
+.heading-1 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  color: var(--ink);
+}
+
+.label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* =========================================
+   BUTTONS
+   ========================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: none;
+  transition: all 0.18s var(--ease);
+  white-space: nowrap;
+}
+.btn-orange {
+  background: var(--orange);
+  color: #fff;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+.btn-orange:hover {
+  background: #c44e22;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(224,92,42,0.35);
+}
+.btn-outline {
+  background: transparent;
+  color: var(--ink);
+  border: 1.5px solid var(--paper-3);
+}
+.btn-outline:hover {
+  background: var(--paper-2);
+  border-color: var(--ink-3);
+  transform: translateY(-1px);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--ink-2);
+  border: 1px solid transparent;
+}
+.btn-ghost:hover {
+  background: var(--paper-2);
+  color: var(--ink);
+}
+.btn-wa {
+  background: var(--wa);
+  color: #fff;
+}
+.btn-wa:hover {
+  background: #1ea855;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(37,211,102,0.35);
+}
+.btn-sm {
+  padding: 8px 16px;
+  font-size: 0.83rem;
+}
+
+/* =========================================
+   CARD (clean, bordered, no blur)
+   ========================================= */
+.card {
+  background: var(--white);
+  border: 1px solid var(--paper-3);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xs);
+  transition: box-shadow 0.2s var(--ease), transform 0.2s var(--ease), border-color 0.2s ease;
+}
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+  border-color: var(--ink-4);
+}
+
+/* =========================================
+   DIVIDERS
+   ========================================= */
+.rule {
+  border: none;
+  border-top: 1px solid var(--paper-3);
+}
+
+/* =========================================
+   FORM CONTROLS
+   ========================================= */
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--white);
+  border: 1.5px solid var(--paper-3);
+  border-radius: var(--radius);
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-family: var(--font-sans);
+  outline: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  line-height: 1.5;
+}
+.form-input::placeholder,
+.form-textarea::placeholder { color: var(--ink-4); }
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: var(--ink-2);
+  box-shadow: 0 0 0 3px rgba(12,12,11,0.06);
+}
+[data-theme="dark"] .form-input:focus,
+[data-theme="dark"] .form-select:focus,
+[data-theme="dark"] .form-textarea:focus {
+  box-shadow: 0 0 0 3px rgba(240,240,238,0.08);
+}
+.form-label {
+  display: block;
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: var(--ink-2);
+  margin-bottom: 6px;
+}
+.form-textarea { resize: vertical; }
+
+/* =========================================
+   CATALOG GRID
+   ========================================= */
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+}
+
+/* =========================================
+   CATEGORY TAG (subtle, no pill)
+   ========================================= */
+.tag {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.tag-blue   { background: var(--blue-light); color: var(--blue); }
+.tag-green  { background: var(--green-light); color: var(--green); }
+.tag-orange { background: var(--orange-light); color: var(--orange); }
+.tag-purple { background: #f3e8ff; color: #6d28d9; }
+
+[data-theme="dark"] .tag-blue   { background: var(--blue-light); color: #93c5fd; }
+[data-theme="dark"] .tag-green  { background: var(--green-light); color: #86efac; }
+[data-theme="dark"] .tag-orange { background: var(--orange-light); color: #fdba74; }
+[data-theme="dark"] .tag-purple { background: #2e1065; color: #c4b5fd; }
+
+/* =========================================
+   FILTER TABS
+   ========================================= */
+.filter-tab {
+  padding: 7px 16px;
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ink-3);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.filter-tab:hover {
+  background: var(--paper-2);
+  color: var(--ink);
+}
+.filter-tab.active {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+[data-theme="dark"] .filter-tab.active {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* =========================================
+   STAT
+   ========================================= */
+.stat-val {
+  font-family: var(--font-serif);
+  font-size: 2.4rem;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--ink);
+}
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--ink-3);
+  margin-top: 3px;
+}
+
+/* =========================================
+   PRICE
+   ========================================= */
+.price {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--green);
+  letter-spacing: -0.03em;
+}
