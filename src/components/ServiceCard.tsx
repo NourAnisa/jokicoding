@@ -6,7 +6,7 @@ import { formatCurrency } from '@/lib/whatsapp';
 import {
   Code, Server, GraduationCap, BookOpenCheck, FileText,
   Newspaper, Keyboard, PenTool, Presentation, FileCheck,
-  Palette, Video, Printer, Star, ArrowRight, Clock, Check
+  Palette, Video, Printer, Award, Star, ArrowRight, Clock, Check
 } from 'lucide-react';
 
 interface ServiceCardProps {
@@ -16,7 +16,7 @@ interface ServiceCardProps {
 
 const ICON_MAP: Record<string, React.ElementType> = {
   Code, Server, GraduationCap, BookOpenCheck, FileText,
-  Newspaper, Keyboard, PenTool, Presentation, FileCheck, Palette, Video, Printer,
+  Newspaper, Keyboard, PenTool, Presentation, FileCheck, Palette, Video, Printer, Award,
 };
 
 const CATEGORY_TAG: Record<string, string> = {

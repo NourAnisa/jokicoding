@@ -260,6 +260,70 @@ export const INITIAL_SERVICES: Service[] = [
     rating: 4.96,
     reviewCount: 340,
     iconName: 'Printer'
+  },
+  {
+    id: 'srv-14',
+    title: 'Paket Terima Beres Laporan Magang',
+    slug: 'paket-laporan-magang',
+    category: 'Akademik',
+    price: 2000000,
+    priceUnit: '/paket',
+    description: 'Paket terima beres Laporan Magang / PKL lengkap Bab 1-5, jurnal harian, & lampiran.',
+    fullDescription: 'Layanan pengerjaan paket terima beres Laporan Magang / Praktek Kerja Lapangan (PKL) komprehensif. Mencakup penyusunan profil perusahaan, Bab 1 Pendahuluan s/d Bab 5 Penutup, jurnal kegiatan harian, analisis tugas magang, lampiran pendukung, serta revisi gratis hingga disetujui dosen pembimbing.',
+    features: ['Penyusunan Bab 1 s/d Bab 5 Lengkap', 'Penyusunan Jurnal Kegiatan Harian', 'Format Sesuai Panduan Kampus', 'Bebas Garansi Revisi Pembimbing', 'Siap Cetak & Softfile DOCX/PDF'],
+    estimatedTime: '3-5 Hari',
+    popular: true,
+    rating: 4.98,
+    reviewCount: 95,
+    iconName: 'FileText'
+  },
+  {
+    id: 'srv-15',
+    title: 'Paket Terima Beres Skripsi / Tugas Akhir',
+    slug: 'paket-skripsi-lengkap',
+    category: 'Akademik',
+    price: 5000000,
+    priceUnit: '/paket',
+    description: 'Paket terima beres Skripsi / TA lengkap Bab 1-5, aplikasi/program, olah data, ppt, & bimbingan.',
+    fullDescription: 'Layanan pengerjaan paket terima beres Skripsi / Tugas Akhir (TA) full service dari awal sampai lulus. Mencakup penyusunan Proposal, Bab 1 Pendahuluan s/d Bab 5 Penutup, pembuatan program/aplikasi (jika jurusan IT), olah data statistik (SPSS/SmartPLS/Python), slide PPT presentasi, serta asistensi bimbingan & revisi tanpa batas.',
+    features: ['Proposal & Bab 1 s/d 5 Full Paket', 'Pembuatan Program / Aplikasi (Untuk IT)', 'Olah Data Statistik SPSS/SmartPLS/Excel', 'Slide PPT Presentasi Sidang', 'Garansi Revisi Dosen Pembimbing Sampai Lulus'],
+    estimatedTime: '7-14 Hari',
+    popular: true,
+    rating: 5.0,
+    reviewCount: 285,
+    iconName: 'GraduationCap'
+  },
+  {
+    id: 'srv-16',
+    title: 'Paket Terima Beres Tesis (S2)',
+    slug: 'paket-tesis-s2',
+    category: 'Akademik',
+    price: 7000000,
+    priceUnit: '/paket',
+    description: 'Paket terima beres Tesis Magister (S2) riset mendalam, metodologi ilmiah, olah data advance, & artikel.',
+    fullDescription: 'Layanan asistensi dan pengerjaan Paket Terima Beres Tesis Magister (S2) profesional. Disusun dengan standar ilmiah tinggi, tinjauan pustaka jurnal internasional terindeks, pengolahan data statistik tingkat lanjut (SEM/PLS/Python/EViews), manuskrip artikel ilmiah, dan pendampingan revisi draf hingga bebas ujian tesis.',
+    features: ['Draf Tesis S2 Lengkap Bab 1 - 5', 'Riset Literatur Jurnal Internasional', 'Olah Data Tingkat Lanjut (SEM / PLS / EViews)', 'Draf Artikel Ilmiah Siap Publish', 'Garansi Revisi & Konsultasi'],
+    estimatedTime: '10-20 Hari',
+    popular: true,
+    rating: 4.97,
+    reviewCount: 110,
+    iconName: 'BookOpenCheck'
+  },
+  {
+    id: 'srv-17',
+    title: 'Paket Terima Beres Disertasi (S3)',
+    slug: 'paket-disertasi-s3',
+    category: 'Akademik',
+    price: 9000000,
+    priceUnit: '/paket',
+    description: 'Paket terima beres Disertasi Doktoral (S3) analisis kebaruan (novelty), metodologi advance, & naskah Scopus.',
+    fullDescription: 'Layanan pendampingan dan pengerjaan Paket Terima Beres Disertasi Doktoral (S3) eksklusif. Berfokus pada perumusan Kebaruan Riset (Novelty), pemodelan teoritis, analisis data kompleks, pendampingan ujian kelayakan, serta draf artikel jurnal reputasi tinggi (Scopus/Sinta 1-2).',
+    features: ['Perumusan Novelty / Kebaruan Riset Doktoral', 'Naskah Disertasi S3 Lengkap & Komprehensif', 'Analisis Data Kompleks & Metodologi Kuat', 'Draft Manuskrip Scopus / Sinta 1-2', 'Pendampingan Konsultasi Eksklusif'],
+    estimatedTime: '14-30 Hari',
+    popular: true,
+    rating: 5.0,
+    reviewCount: 48,
+    iconName: 'Award'
   }
 ];
 
@@ -277,14 +341,21 @@ export function getServices(): Service[] {
       return INITIAL_SERVICES;
     }
     const parsed: Service[] = JSON.parse(stored);
-    // Ensure newly added initial services like jasa-print are included
-    const hasPrint = parsed.some(s => s.slug === 'jasa-print');
-    if (!hasPrint) {
-      const updated = [...parsed, INITIAL_SERVICES.find(s => s.slug === 'jasa-print')!];
+    
+    // Ensure newly added initial services (like paket terima beres & print) exist
+    let updated = [...parsed];
+    let changed = false;
+    INITIAL_SERVICES.forEach(initSrv => {
+      if (!updated.some(s => s.slug === initSrv.slug)) {
+        updated.push(initSrv);
+        changed = true;
+      }
+    });
+
+    if (changed) {
       localStorage.setItem(LOCAL_STORAGE_SERVICES_KEY, JSON.stringify(updated));
-      return updated;
     }
-    return parsed;
+    return updated;
   } catch {
     return INITIAL_SERVICES;
   }
