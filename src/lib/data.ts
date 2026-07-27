@@ -3,7 +3,8 @@ import { Service, Order, SiteConfig, Partner } from '@/types';
 export const DEFAULT_SITE_CONFIG: SiteConfig = {
   brandName: 'JokiCoding & Akademik Master',
   tagline: 'Solusi Terpercaya untuk Jasa Ngoding, Tugas Akademik, Desain, & Multimedia',
-  adminPhone: '6281234567890',
+  adminPhone: '6281521907985',
+  adminPhone2: '6285155133070',
   qrisImageUrl: 'https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=00020101021126580014ID.GO.QRIS.WWW01189360091400000000005204581253033605802ID5914JOKICODING%20INC6007JAKARTA61051234562070703A0163047A8F',
   bankInfo: {
     bankName: 'BCA',

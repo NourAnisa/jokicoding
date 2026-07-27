@@ -35,7 +35,7 @@ export default function Hero({ searchQuery, onSearchChange }: HeroProps) {
               <a href="#katalog" className="btn btn-orange">
                 Lihat Semua Layanan <ArrowRight size={15} />
               </a>
-              <a href="https://wa.me/628123456789" target="_blank" rel="noopener noreferrer"
+              <a href="https://wa.me/6281521907985" target="_blank" rel="noopener noreferrer"
                 className="btn btn-outline">
                 Tanya Dulu, Gratis
               </a>

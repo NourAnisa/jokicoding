@@ -204,7 +204,7 @@ export default function HomePage() {
             <a href="#katalog" className="btn btn-orange">
               Mulai Pesan Sekarang <ArrowRight size={15} />
             </a>
-            <a href="https://wa.me/628123456789" target="_blank" rel="noopener noreferrer"
+            <a href="https://wa.me/6281521907985" target="_blank" rel="noopener noreferrer"
               className="btn btn-outline">
               Ada pertanyaan? Chat dulu
             </a>

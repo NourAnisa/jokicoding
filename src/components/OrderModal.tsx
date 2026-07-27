@@ -16,6 +16,7 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
   const [customerPhone, setCustomerPhone] = useState('');
   const [customerEmail, setCustomerEmail] = useState('');
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('qris_gopay');
+  const [targetAdminPhone, setTargetAdminPhone] = useState<string>(DEFAULT_SITE_CONFIG.adminPhone);
   const [notes, setNotes] = useState('');
   const [deadline, setDeadline] = useState('');
 
@@ -86,7 +87,7 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
 
       const saved = saveOrder(orderPayload);
 
-      const waLink = generateWhatsAppLink(DEFAULT_SITE_CONFIG.adminPhone, {
+      const waLink = generateWhatsAppLink(targetAdminPhone || DEFAULT_SITE_CONFIG.adminPhone, {
         ...saved,
         ...orderPayload
       });
@@ -289,6 +290,52 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
               onChange={(e) => setDeadline(e.target.value)}
               className="form-input"
             />
+          </div>
+
+          {/* Target Admin WhatsApp Selection */}
+          <div>
+            <label className="form-label">Pilih Admin WhatsApp Tujuan <span style={{ color: '#dc2626' }}>*</span></label>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+              <button
+                type="button"
+                onClick={() => setTargetAdminPhone(DEFAULT_SITE_CONFIG.adminPhone)}
+                style={{
+                  padding: '10px 12px',
+                  borderRadius: 'var(--radius)',
+                  border: targetAdminPhone === DEFAULT_SITE_CONFIG.adminPhone ? '1.5px solid var(--ink)' : '1px solid var(--paper-3)',
+                  background: targetAdminPhone === DEFAULT_SITE_CONFIG.adminPhone ? 'var(--ink)' : 'var(--white)',
+                  color: targetAdminPhone === DEFAULT_SITE_CONFIG.adminPhone ? 'var(--paper)' : 'var(--ink-2)',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  fontSize: '0.82rem',
+                  fontWeight: 600,
+                  transition: 'all 0.15s ease',
+                }}
+              >
+                <div>💬 Admin 1 (Utama)</div>
+                <div style={{ fontSize: '0.72rem', opacity: 0.8 }}>0815-2190-7985</div>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setTargetAdminPhone(DEFAULT_SITE_CONFIG.adminPhone2 || '6285155133070')}
+                style={{
+                  padding: '10px 12px',
+                  borderRadius: 'var(--radius)',
+                  border: targetAdminPhone === (DEFAULT_SITE_CONFIG.adminPhone2 || '6285155133070') ? '1.5px solid var(--ink)' : '1px solid var(--paper-3)',
+                  background: targetAdminPhone === (DEFAULT_SITE_CONFIG.adminPhone2 || '6285155133070') ? 'var(--ink)' : 'var(--white)',
+                  color: targetAdminPhone === (DEFAULT_SITE_CONFIG.adminPhone2 || '6285155133070') ? 'var(--paper)' : 'var(--ink-2)',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  fontSize: '0.82rem',
+                  fontWeight: 600,
+                  transition: 'all 0.15s ease',
+                }}
+              >
+                <div>💬 Admin 2 (Cadangan)</div>
+                <div style={{ fontSize: '0.72rem', opacity: 0.8 }}>0851-5513-3070</div>
+              </button>
+            </div>
           </div>
 
           {/* Payment Method Selector */}

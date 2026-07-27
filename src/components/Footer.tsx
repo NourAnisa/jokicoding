@@ -32,9 +32,17 @@ export default function Footer() {
                 JokiCoding
               </span>
             </div>
-            <p style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.55)', lineHeight: 1.75, maxWidth: '280px', marginBottom: '24px' }}>
+            <p style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.55)', lineHeight: 1.75, maxWidth: '280px', marginBottom: '18px' }}>
               Platform terpercaya pengerjaan tugas ngoding, karya tulis akademik, desain grafis, dan media — dengan jaminan privasi & garansi revisi.
             </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '0.82rem', marginBottom: '18px' }}>
+              <a href="https://wa.me/6281521907985" target="_blank" rel="noopener noreferrer" style={{ color: '#4ade80', fontWeight: 600 }}>
+                💬 Admin 1: 0815-2190-7985
+              </a>
+              <a href="https://wa.me/6285155133070" target="_blank" rel="noopener noreferrer" style={{ color: '#4ade80', fontWeight: 600 }}>
+                💬 Admin 2: 0851-5513-3070
+              </a>
+            </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '7px', fontSize: '0.8rem', color: '#86efac', fontWeight: 600 }}>
               <ShieldCheck size={14} />
               100% Kerahasiaan & Tepat Waktu

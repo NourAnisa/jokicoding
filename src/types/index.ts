@@ -51,6 +51,7 @@ export interface SiteConfig {
   brandName: string;
   tagline: string;
   adminPhone: string;
+  adminPhone2?: string;
   qrisImageUrl?: string;
   bankInfo?: {
     bankName: string;

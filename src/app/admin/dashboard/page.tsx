@@ -438,11 +438,21 @@ export default function AdminDashboardPage() {
             <h3 style={{ color: 'var(--ink)', fontSize: '1.1rem', fontWeight: 600, marginBottom: '20px' }}>Pengaturan WhatsApp & QRIS</h3>
             <form onSubmit={handleSaveConfig} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div>
-                <label className="form-label">Nomor WhatsApp Admin (misal 628xxx)</label>
+                <label className="form-label">Nomor WhatsApp Admin 1 / Utama (misal 6281521907985)</label>
                 <input
                   type="text"
                   value={config.adminPhone}
                   onChange={(e) => setConfig({ ...config, adminPhone: e.target.value })}
+                  className="form-input"
+                />
+              </div>
+
+              <div>
+                <label className="form-label">Nomor WhatsApp Admin 2 / Cadangan (misal 6285155133070)</label>
+                <input
+                  type="text"
+                  value={config.adminPhone2 || ''}
+                  onChange={(e) => setConfig({ ...config, adminPhone2: e.target.value })}
                   className="form-input"
                 />
               </div>
