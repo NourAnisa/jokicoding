@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title: `${service.title} | JokiCoding`,
       description: service.description,
-      url: `https://jokicoding.vercel.app/jasa/${service.slug}`,
+      url: `https://jokicoding.web.id/jasa/${service.slug}`,
       type: 'article',
     },
   };

@@ -19,14 +19,14 @@ export const metadata: Metadata = {
     'jokicoding', 'jasa coding murah', 'jasa skripsi terpercaya',
   ],
   authors: [{ name: DEFAULT_SITE_CONFIG.brandName }],
-  metadataBase: new URL('https://jokicoding.vercel.app'),
+  metadataBase: new URL('https://jokicoding.web.id'),
   alternates: {
-    canonical: 'https://jokicoding.vercel.app',
+    canonical: 'https://jokicoding.web.id',
   },
   openGraph: {
     title: 'JokiCoding — Solusi Tugas & Jasa Ngoding Terpercaya',
     description: 'Jasa ngoding, skripsi, desain, edit video & hosting. Dikerjakan ahli berpengalaman. Garansi revisi & bayar via QRIS/GoPay.',
-    url: 'https://jokicoding.vercel.app',
+    url: 'https://jokicoding.web.id',
     siteName: DEFAULT_SITE_CONFIG.brandName,
     locale: 'id_ID',
     type: 'website',

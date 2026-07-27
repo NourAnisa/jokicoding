@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { INITIAL_SERVICES } from '@/lib/data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://jokicoding.vercel.app';
+  const baseUrl = 'https://jokicoding.web.id';
 
   const serviceUrls = INITIAL_SERVICES.map((service) => ({
     url: `${baseUrl}/jasa/${service.slug}`,

@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: '/admin/',
     },
-    sitemap: 'https://jokicoding.vercel.app/sitemap.xml',
+    sitemap: 'https://jokicoding.web.id/sitemap.xml',
   };
 }

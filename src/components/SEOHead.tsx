@@ -1,7 +1,7 @@
 import { DEFAULT_SITE_CONFIG, INITIAL_SERVICES } from '@/lib/data';
 
 export default function SEOHead() {
-  const baseUrl = 'https://jokicoding.vercel.app';
+  const baseUrl = 'https://jokicoding.web.id';
 
   // 1. LocalBusiness & Organization Schema
   const jsonLdLocalBusiness = {
