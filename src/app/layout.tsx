@@ -45,6 +45,9 @@ export const metadata: Metadata = {
     description: 'Jasa ngoding, skripsi, desain, edit video & hosting. Garansi revisi, bayar QRIS/GoPay.',
     images: ['/og-image.png'],
   },
+  verification: {
+    google: 'google1bfaed16ab67c926',
+  },
   robots: {
     index: true,
     follow: true,
