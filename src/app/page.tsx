@@ -231,7 +231,7 @@ export default function HomePage() {
               },
               {
                 q: 'Berapa biaya cetak / print dokumen per lembar?',
-                a: 'Tarif cetak print dokumen: Hitam Putih (BW) Rp 400 per lembar, dan Cetak Warna Rp 600 per lembar menggunakan kertas HVS berkualitas.',
+                a: 'Tarif cetak print dokumen: Hitam Putih (BW) Rp 400 per lembar, dan Cetak Warna Rp 800 per lembar menggunakan kertas HVS berkualitas.',
               },
               {
                 q: 'Berapa lama estimasi pengerjaan jasa ngoding & skripsi?',

@@ -57,7 +57,7 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
 
   const currentUnitPrice = service
     ? isPrintService
-      ? (printType === 'Warna' ? 600 : 400)
+      ? (printType === 'Warna' ? 800 : 400)
       : service.price
     : 0;
 
@@ -100,7 +100,7 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
         programmingLanguage: isCodingService ? programmingLanguage : undefined,
         hostingPlatform: isHostingService ? hostingPlatform : undefined,
         pageCount: isPageBasedService ? pageCount : undefined,
-        printType: isPrintService ? (printType === 'Warna' ? 'Cetak Warna (Rp 600/lembar)' : 'Hitam Putih (Rp 400/lembar)') : undefined,
+        printType: isPrintService ? (printType === 'Warna' ? 'Cetak Warna (Rp 800/lembar)' : 'Hitam Putih (Rp 400/lembar)') : undefined,
       };
 
       const saved = saveOrder(orderPayload);
@@ -254,7 +254,7 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
                   }}
                 >
                   <div>🎨 Cetak Warna</div>
-                  <div style={{ fontSize: '0.73rem', opacity: 0.8 }}>Rp 600 / lembar</div>
+                  <div style={{ fontSize: '0.73rem', opacity: 0.8 }}>Rp 800 / lembar</div>
                 </button>
               </div>
             </div>
