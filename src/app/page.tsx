@@ -212,6 +212,57 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── FAQ SECTION (SEO Rich Snippets) ───────── */}
+      <section id="faq" style={{ padding: '80px 0', borderTop: '1px solid var(--paper-3)', background: 'var(--paper)' }}>
+        <div className="container">
+          <div style={{ maxWidth: '640px', marginBottom: '40px' }}>
+            <div className="label" style={{ marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <span style={{ display: 'inline-block', width: '20px', height: '1.5px', background: 'var(--orange)' }} />
+              Tanya Jawab (FAQ)
+            </div>
+            <h2 className="heading-1">Pertanyaan yang Sering Diajukan</h2>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+            {[
+              {
+                q: 'Apakah ada garansi revisi untuk pengerjaan tugas & skripsi?',
+                a: 'Ya, 100% Bebas Garansi Revisi! Setiap pengerjaan kodingan, skripsi, makalah, maupun desain bebas revisi sesuai catatan dosen atau instruktur hingga hasilnya pas.',
+              },
+              {
+                q: 'Berapa biaya cetak / print dokumen per lembar?',
+                a: 'Tarif cetak print dokumen: Hitam Putih (BW) Rp 400 per lembar, dan Cetak Warna Rp 600 per lembar menggunakan kertas HVS berkualitas.',
+              },
+              {
+                q: 'Berapa lama estimasi pengerjaan jasa ngoding & skripsi?',
+                a: 'Tersedia layanan Express 24 Jam untuk deadline mendesak, serta layanan reguler 1-3 hari kerja tergantung tingkat kerumitan tugas.',
+              },
+              {
+                q: 'Bagaimana metode pembayaran yang tersedia?',
+                a: 'Pembayaran sangat praktis melalui QRIS Instant, GoPay, OVO, DANA, Transfer Bank (BCA/Mandiri/BRI), atau opsi Bayar Nanti saat tugas selesai.',
+              },
+              {
+                q: 'Apakah privasi dan identitas pemesan dijamin aman?',
+                a: '100% Kerahasiaan Terjamin! Identitas pemesan, file tugas, dan source code tidak akan dipublikasikan atau dibagikan ke pihak mana pun.',
+              },
+              {
+                q: 'Bagaimana cara memilih bahasa pemrograman / framework?',
+                a: 'Saat mengisi formulir pemesanan Jasa Ngoding, Anda dapat memilih spesifikasi seperti Next.js, React, PHP, Laravel, Python, C++, Java, atau Node.js.',
+              },
+            ].map(({ q, a }, idx) => (
+              <div key={idx} className="card" style={{ padding: '24px' }}>
+                <h3 style={{ fontSize: '0.98rem', fontWeight: 600, color: 'var(--ink)', marginBottom: '8px' }}>
+                  {q}
+                </h3>
+                <p style={{ fontSize: '0.865rem', color: 'var(--ink-3)', lineHeight: 1.65 }}>
+                  {a}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <OrderModal service={selected} onClose={() => setSelected(null)} />
     </div>
   );
