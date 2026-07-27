@@ -10,9 +10,10 @@ import {
   getSiteConfig, saveSiteConfig
 } from '@/lib/data';
 import { formatCurrency } from '@/lib/whatsapp';
+import { saveAdminPin, verifyAdminPin } from '@/lib/auth';
 import {
   ShieldCheck, Plus, Trash2, Edit, LogOut,
-  Package, ShoppingBag, Settings, Building2, Save
+  Package, ShoppingBag, Settings, Building2, Save, Lock, KeyRound
 } from 'lucide-react';
 
 export default function AdminDashboardPage() {
@@ -44,6 +45,36 @@ export default function AdminDashboardPage() {
   const [partnerName, setPartnerName] = useState('');
   const [partnerCategory, setPartnerCategory] = useState('');
   const [partnerLogoUrl, setPartnerLogoUrl] = useState('');
+
+  // Password Security Change State
+  const [currentPinInput, setCurrentPinInput] = useState('');
+  const [newPinInput, setNewPinInput] = useState('');
+  const [confirmPinInput, setConfirmPinInput] = useState('');
+  const [pinChangeMsg, setPinChangeMsg] = useState<{ text: string; error: boolean } | null>(null);
+
+  const handleChangePassword = (e: React.FormEvent) => {
+    e.preventDefault();
+    setPinChangeMsg(null);
+
+    if (!verifyAdminPin(currentPinInput)) {
+      setPinChangeMsg({ text: 'Password Admin saat ini salah!', error: true });
+      return;
+    }
+    if (newPinInput.length < 4) {
+      setPinChangeMsg({ text: 'Password Baru minimal harus 4 karakter!', error: true });
+      return;
+    }
+    if (newPinInput !== confirmPinInput) {
+      setPinChangeMsg({ text: 'Konfirmasi Password Baru tidak cocok!', error: true });
+      return;
+    }
+
+    saveAdminPin(newPinInput);
+    setCurrentPinInput('');
+    setNewPinInput('');
+    setConfirmPinInput('');
+    setPinChangeMsg({ text: '✓ Password Admin Berhasil Diperbarui!', error: false });
+  };
 
   useEffect(() => {
     const isAuth = sessionStorage.getItem('jokicoding_admin_authenticated');
@@ -471,6 +502,73 @@ export default function AdminDashboardPage() {
                 <Save size={16} /> Simpan Pengaturan
               </button>
             </form>
+
+            {/* PASSWORD SECURITY FORM */}
+            <div style={{ marginTop: '36px', paddingTop: '28px', borderTop: '1px solid var(--paper-3)' }}>
+              <h3 style={{ color: 'var(--ink)', fontSize: '1.1rem', fontWeight: 600, marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <KeyRound size={18} color="var(--orange)" /> Keamanan & Ganti Password Admin
+              </h3>
+              <p style={{ fontSize: '0.85rem', color: 'var(--ink-3)', marginBottom: '16px' }}>
+                Ubah password / PIN akses portal admin untuk menjaga keamanan akun Anda.
+              </p>
+
+              {pinChangeMsg && (
+                <div style={{
+                  padding: '10px 14px',
+                  borderRadius: 'var(--radius)',
+                  background: pinChangeMsg.error ? '#fef2f2' : '#f0fdf4',
+                  border: pinChangeMsg.error ? '1px solid #fecaca' : '1px solid #bbf7d0',
+                  color: pinChangeMsg.error ? '#dc2626' : '#16a34a',
+                  fontSize: '0.85rem',
+                  fontWeight: 600,
+                  marginBottom: '16px',
+                }}>
+                  {pinChangeMsg.text}
+                </div>
+              )}
+
+              <form onSubmit={handleChangePassword} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                <div>
+                  <label className="form-label">Password saat ini</label>
+                  <input
+                    type="password"
+                    required
+                    placeholder="Masukkan password admin saat ini"
+                    value={currentPinInput}
+                    onChange={(e) => setCurrentPinInput(e.target.value)}
+                    className="form-input"
+                  />
+                </div>
+
+                <div>
+                  <label className="form-label">Password Baru</label>
+                  <input
+                    type="password"
+                    required
+                    placeholder="Masukkan password baru (min. 4 karakter)"
+                    value={newPinInput}
+                    onChange={(e) => setNewPinInput(e.target.value)}
+                    className="form-input"
+                  />
+                </div>
+
+                <div>
+                  <label className="form-label">Konfirmasi Password Baru</label>
+                  <input
+                    type="password"
+                    required
+                    placeholder="Ketik ulang password baru"
+                    value={confirmPinInput}
+                    onChange={(e) => setConfirmPinInput(e.target.value)}
+                    className="form-input"
+                  />
+                </div>
+
+                <button type="submit" className="btn btn-outline" style={{ alignSelf: 'flex-start' }}>
+                  <Lock size={15} /> Perbarui Password Admin
+                </button>
+              </form>
+            </div>
           </div>
         )}
 
