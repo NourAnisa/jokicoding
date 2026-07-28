@@ -13,10 +13,7 @@ export default function Footer() {
       paddingBottom: '32px',
     }}>
       <div className="container">
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1.5fr 1fr 1fr',
-          gap: '56px',
+        <div className="footer-grid" style={{
           paddingBottom: '52px',
           borderBottom: '1px solid rgba(255,255,255,0.1)',
           marginBottom: '28px',
@@ -127,11 +124,6 @@ export default function Footer() {
         </div>
       </div>
 
-      <style>{`
-        @media (max-width: 768px) {
-          footer .container > div:first-child { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
     </footer>
   );
 }

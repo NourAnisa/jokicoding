@@ -43,7 +43,6 @@ export default async function ServiceDetailPage({ params }: PageProps) {
     notFound();
   }
 
-  // JSON-LD Schema.org for individual Service
   const jsonLdService = {
     '@context': 'https://schema.org',
     '@type': 'Service',
@@ -52,7 +51,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
     provider: {
       '@type': 'LocalBusiness',
       name: 'JokiCoding',
-      telephone: '+6281234567890',
+      telephone: '+6281521907985',
     },
     offers: {
       '@type': 'Offer',
@@ -68,7 +67,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
   };
 
   return (
-    <div style={{ paddingTop: '30px', paddingBottom: '80px' }}>
+    <div style={{ paddingTop: '40px', paddingBottom: '80px', background: 'var(--paper)' }}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdService) }}
@@ -80,15 +79,16 @@ export default async function ServiceDetailPage({ params }: PageProps) {
           display: 'flex',
           alignItems: 'center',
           gap: '8px',
-          fontSize: '0.85rem',
-          color: 'var(--text-muted)',
-          marginBottom: '24px'
+          fontSize: '0.82rem',
+          color: 'var(--ink-4)',
+          marginBottom: '20px',
+          flexWrap: 'wrap',
         }}>
-          <Link href="/" style={{ color: 'var(--text-muted)' }}>Beranda</Link>
-          <ChevronRight size={14} />
-          <Link href="/#katalog" style={{ color: 'var(--text-muted)' }}>Katalog Jasa</Link>
-          <ChevronRight size={14} />
-          <span style={{ color: '#fff', fontWeight: 600 }}>{service.title}</span>
+          <Link href="/" style={{ color: 'var(--ink-3)' }}>Beranda</Link>
+          <ChevronRight size={13} color="var(--ink-4)" />
+          <Link href="/#katalog" style={{ color: 'var(--ink-3)' }}>Katalog Jasa</Link>
+          <ChevronRight size={13} color="var(--ink-4)" />
+          <span style={{ color: 'var(--ink)', fontWeight: 600 }}>{service.title}</span>
         </div>
 
         {/* Back Link */}
@@ -96,70 +96,142 @@ export default async function ServiceDetailPage({ params }: PageProps) {
           display: 'inline-flex',
           alignItems: 'center',
           gap: '6px',
-          color: '#a5b4fc',
-          fontSize: '0.88rem',
-          fontWeight: 600,
-          marginBottom: '20px'
+          color: 'var(--ink-3)',
+          fontSize: '0.85rem',
+          fontWeight: 500,
+          marginBottom: '28px',
+          transition: 'color 0.15s ease',
         }}>
-          <ArrowLeft size={16} /> Kembali ke Katalog Jasa
+          <ArrowLeft size={15} /> Kembali ke Katalog Jasa
         </Link>
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
           gap: '40px',
-          alignItems: 'start'
+          alignItems: 'start',
         }}>
           {/* Main Info */}
           <div>
-            <div style={{ display: 'flex', gap: '10px', marginBottom: '12px' }}>
-              <span className="badge badge-indigo">{service.category}</span>
-              <span className="badge badge-amber" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                <Star size={12} fill="#fcd34d" color="#fcd34d" /> Rating {service.rating} ({service.reviewCount} pesanan)
+            {/* Category + Rating */}
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '16px' }}>
+              <span className="tag tag-blue">{service.category}</span>
+              <span className="tag tag-orange" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                <Star size={11} fill="var(--orange)" color="var(--orange)" />
+                Rating {service.rating} ({service.reviewCount} pesanan)
               </span>
+              {service.popular && (
+                <span className="tag tag-green">🔥 Populer</span>
+              )}
             </div>
 
-            <h1 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.6rem)', color: '#fff', marginBottom: '16px', lineHeight: '1.2' }}>
+            {/* Title */}
+            <h1 style={{
+              fontFamily: 'var(--font-serif)',
+              fontSize: 'clamp(1.8rem, 4vw, 2.6rem)',
+              color: 'var(--ink)',
+              marginBottom: '16px',
+              lineHeight: '1.2',
+              letterSpacing: '-0.02em',
+            }}>
               {service.title}
             </h1>
 
+            {/* Estimasi */}
             <div style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: '6px',
-              backgroundColor: 'rgba(16, 185, 129, 0.12)',
-              border: '1px solid rgba(16, 185, 129, 0.3)',
+              background: 'var(--green-light)',
+              border: '1px solid #bbf7d0',
               padding: '6px 14px',
-              borderRadius: 'var(--radius-full)',
-              color: '#6ee7b7',
+              borderRadius: 'var(--radius)',
+              color: 'var(--green)',
               fontSize: '0.85rem',
               fontWeight: 600,
-              marginBottom: '24px'
+              marginBottom: '28px',
             }}>
-              <Clock size={16} /> Estimasi Pengerjaan: {service.estimatedTime}
+              <Clock size={15} /> Estimasi Pengerjaan: {service.estimatedTime}
             </div>
 
-            <h3 style={{ color: '#fff', fontSize: '1.2rem', marginBottom: '10px' }}>Deskripsi Layanan</h3>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.98rem', lineHeight: '1.7', marginBottom: '28px', whiteSpace: 'pre-line' }}>
-              {service.fullDescription}
-            </p>
+            {/* Deskripsi */}
+            <div style={{
+              borderLeft: '3px solid var(--orange)',
+              paddingLeft: '16px',
+              marginBottom: '28px',
+            }}>
+              <h3 style={{ color: 'var(--ink)', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '10px' }}>
+                Deskripsi Layanan
+              </h3>
+              <p style={{ color: 'var(--ink-2)', fontSize: '0.96rem', lineHeight: '1.75' }}>
+                {service.fullDescription}
+              </p>
+            </div>
 
-            <h3 style={{ color: '#fff', fontSize: '1.2rem', marginBottom: '14px' }}>Keunggulan & Cakupan Layanan</h3>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px', marginBottom: '32px' }}>
-              {service.features.map((feat, idx) => (
-                <div key={idx} className="glass-panel" style={{ padding: '14px 16px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <CheckCircle2 size={18} color="#10b981" />
-                  <span style={{ fontSize: '0.88rem', color: '#f3f4f6', fontWeight: 500 }}>{feat}</span>
+            {/* Features */}
+            <div style={{ marginBottom: '32px' }}>
+              <h3 style={{
+                color: 'var(--ink)',
+                fontSize: '0.72rem',
+                fontWeight: 700,
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+                marginBottom: '14px',
+              }}>
+                Keunggulan &amp; Cakupan Layanan
+              </h3>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                gap: '10px',
+              }}>
+                {service.features.map((feat, idx) => (
+                  <div key={idx} className="card" style={{
+                    padding: '12px 16px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '10px',
+                  }}>
+                    <CheckCircle2 size={16} color="var(--green)" style={{ flexShrink: 0 }} />
+                    <span style={{ fontSize: '0.87rem', color: 'var(--ink-2)', fontWeight: 500 }}>{feat}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Guarantees */}
+            <div style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '10px',
+            }}>
+              {[
+                'Dukungan Bayar QRIS & GoPay Instant',
+                'Garansi Revisi Sampai Puas',
+                'Garansi Identitas & File 100% Rahasia',
+              ].map((g) => (
+                <div key={g} style={{
+                  display: 'flex', alignItems: 'center', gap: '6px',
+                  fontSize: '0.82rem', color: 'var(--ink-3)',
+                  background: 'var(--paper-2)',
+                  border: '1px solid var(--paper-3)',
+                  borderRadius: 'var(--radius)',
+                  padding: '5px 10px',
+                }}>
+                  <ShieldCheck size={13} color="var(--green)" />
+                  {g}
                 </div>
               ))}
             </div>
 
             {(service.slug === 'olah-data-spss' || service.slug === 'jasa-skripsi') && (
-              <SPSSTable />
+              <div style={{ marginTop: '32px' }}>
+                <SPSSTable />
+              </div>
             )}
           </div>
 
-          {/* Right Pricing Card & Order Client Trigger */}
+          {/* Right: Pricing Card & Order */}
           <DetailPageClient service={service} />
         </div>
       </div>

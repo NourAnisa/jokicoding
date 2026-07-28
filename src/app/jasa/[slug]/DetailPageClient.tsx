@@ -14,55 +14,63 @@ export default function DetailPageClient({ service }: DetailPageClientProps) {
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
-    <div className="glass-panel" style={{
-      padding: '30px',
+    <div className="card" style={{
+      padding: '28px',
       position: 'sticky',
-      top: '100px',
-      border: '1px solid var(--border-glow)'
+      top: '88px',
     }}>
-      <span className="badge badge-emerald" style={{ marginBottom: '10px' }}>Harga Transparan</span>
+      {/* Header badge */}
+      <span className="tag tag-green" style={{ marginBottom: '12px', display: 'inline-block' }}>
+        Harga Transparan
+      </span>
+
+      {/* Price */}
       <div style={{ marginBottom: '20px' }}>
-        <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', display: 'block' }}>Mulai dari</span>
-        <span style={{ fontSize: '2.2rem', fontWeight: 800, color: 'var(--price-color)' }}>
+        <span style={{ fontSize: '0.82rem', color: 'var(--ink-4)', display: 'block', marginBottom: '2px' }}>
+          Mulai dari
+        </span>
+        <span className="price" style={{ fontSize: '2rem', display: 'block' }}>
           {formatCurrency(service.price)}
         </span>
-        <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}> {service.priceUnit}</span>
+        <span style={{ fontSize: '0.88rem', color: 'var(--ink-3)' }}>{service.priceUnit}</span>
       </div>
 
+      {/* CTA Button */}
       <button
         onClick={() => setModalOpen(true)}
-        className="btn-whatsapp"
+        className="btn btn-orange"
         style={{
           width: '100%',
           justifyContent: 'center',
-          padding: '16px',
-          fontSize: '1.05rem',
-          marginBottom: '16px'
+          padding: '14px 20px',
+          fontSize: '1rem',
+          marginBottom: '16px',
         }}
       >
-        Pesan Jasa Ini Sekarang <ArrowRight size={20} />
+        Pesan Jasa Ini Sekarang <ArrowRight size={18} />
       </button>
 
+      {/* Guarantees */}
       <div style={{
         display: 'flex',
         flexDirection: 'column',
-        gap: '12px',
-        fontSize: '0.82rem',
-        color: 'var(--text-muted)',
-        borderTop: '1px solid var(--border-color)',
-        paddingTop: '16px'
+        gap: '10px',
+        fontSize: '0.83rem',
+        color: 'var(--ink-3)',
+        borderTop: '1px solid var(--paper-3)',
+        paddingTop: '16px',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <QrCode size={16} color="var(--accent-emerald)" />
-          <span>Dukungan Bayar QRIS & GoPay Instant</span>
+          <QrCode size={15} color="var(--green)" />
+          <span>Dukungan Bayar QRIS &amp; GoPay Instant</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <RefreshCw size={16} color="var(--accent-indigo)" />
+          <RefreshCw size={15} color="var(--blue)" />
           <span>Garansi Revisi Sampai Puas</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <ShieldCheck size={16} color="var(--accent-amber)" />
-          <span>Garansi Identitas & File 100% Rahasia</span>
+          <ShieldCheck size={15} color="var(--orange)" />
+          <span>Garansi Identitas &amp; File 100% Rahasia</span>
         </div>
       </div>
 
