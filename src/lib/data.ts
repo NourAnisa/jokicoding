@@ -556,6 +556,54 @@ export const INITIAL_SERVICES: Service[] = [
     rating: 4.94,
     reviewCount: 64,
     iconName: 'Cpu'
+  },
+  {
+    id: 'srv-34',
+    title: 'Jasa Program STM32',
+    slug: 'jasa-program-stm32',
+    category: 'IT & Web',
+    price: 800000,
+    priceUnit: '/proyek',
+    description: 'Jasa pembuatan program STM32 (Arduino core / STM32CubeIDE / Keil MDK) untuk firmware & IoT.',
+    fullDescription: 'Layanan koding firmware mikrokontroler 32-bit ARM Cortex-M (STM32F1/F4/H7) menggunakan STM32CubeIDE, Keil uVision, atau Arduino HAL. Sangat tepat untuk aplikasi industri berkecepatan tinggi, pengolahan sinyal presisi, FreeRTOS, dan komunikasi DMA/CAN/SPI/I2C/UART.',
+    features: ['STM32CubeIDE / Keil MDK / Arduino Core', 'FreeRTOS & High Performance HAL', 'File Firmware .hex / .bin / .elf', 'Source Code & Skema Wiring'],
+    estimatedTime: '2-4 Hari',
+    popular: false,
+    rating: 4.93,
+    reviewCount: 47,
+    iconName: 'Cpu'
+  },
+  {
+    id: 'srv-35',
+    title: 'Jasa Program PHP & MySQL',
+    slug: 'jasa-program-php-mysql',
+    category: 'IT & Web',
+    price: 1200000,
+    priceUnit: '/proyek',
+    description: 'Jasa pembuatan program PHP & MySQL untuk sistem informasi, database IoT, & REST API.',
+    fullDescription: 'Layanan pemrograman web PHP & database MySQL/MariaDB profesional. Cocok untuk pembuatan sistem informasi kampus/kantor, backend REST API IoT (ESP8266/ESP32/Raspberry Pi), dashboard monitoring data realtime, serta framework Laravel / CodeIgniter / Native PHP.',
+    features: ['Native PHP / Laravel / CodeIgniter', 'Database MySQL / MariaDB Optimized', 'REST API Backend IoT & Dashboard Web', 'Export PDF / Excel Report'],
+    estimatedTime: '2-4 Hari',
+    popular: true,
+    rating: 4.98,
+    reviewCount: 210,
+    iconName: 'Database'
+  },
+  {
+    id: 'srv-36',
+    title: 'Jasa Program Visual Studio',
+    slug: 'jasa-program-visual-studio',
+    category: 'IT & Web',
+    price: 800000,
+    priceUnit: '/proyek',
+    description: 'Jasa pembuatan program Visual Studio (C#, VB.NET, C++) berbasis PC/Laptop untuk bisnis & skripsi.',
+    fullDescription: 'Layanan pembuatan aplikasi desktop Windows berbasis Microsoft Visual Studio (C# / VB.NET / C++ WinForms / WPF). Mencakup sistem kasir POS, manajemen inventaris gudang, aplikasi akademik/skripsi, dan integrasi serial port komunikasi hardware.',
+    features: ['C# / VB.NET / C++ WinForms & WPF', 'Koneksi SQL Server / MySQL / SQLite', 'Serial Port & Hardware Interfacing', 'Source Code & Installer .exe'],
+    estimatedTime: '2-4 Hari',
+    popular: false,
+    rating: 4.91,
+    reviewCount: 76,
+    iconName: 'Monitor'
   }
 ];
 
