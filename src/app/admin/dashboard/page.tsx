@@ -392,7 +392,7 @@ export default function AdminDashboardPage() {
             <h3 style={{ color: 'var(--ink)', fontSize: '1.1rem', fontWeight: 600, marginBottom: '20px' }}>Riwayat Pesanan Pelanggan</h3>
 
             {orders.length > 0 ? (
-              <div className="card" style={{ overflowX: 'auto' }}>
+              <div className="card admin-table-wrap" style={{ overflowX: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem', color: 'var(--ink)' }}>
                   <thead>
                     <tr style={{ background: 'var(--paper-2)', textAlign: 'left', borderBottom: '1px solid var(--paper-3)' }}>

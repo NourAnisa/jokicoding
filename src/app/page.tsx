@@ -47,7 +47,7 @@ export default function HomePage() {
             </div>
 
             {/* Category filter tabs */}
-            <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap', alignSelf: 'flex-end' }}>
+            <div className="filter-tabs-row" style={{ display: 'flex', gap: '4px', flexWrap: 'wrap', alignSelf: 'flex-end' }}>
               {CATEGORIES.map(cat => (
                 <button
                   key={cat}
@@ -88,7 +88,7 @@ export default function HomePage() {
       {/* ── ADVANTAGES ──────────────────────────── */}
       <section id="keunggulan" style={{ padding: '80px 0', borderBottom: '1px solid var(--paper-3)' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.8fr', gap: '80px', alignItems: 'flex-start' }}>
+          <div className="advantage-grid">
             {/* Left — big statement */}
             <div style={{ position: 'sticky', top: '88px' }}>
               <div className="label" style={{ marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -174,7 +174,7 @@ export default function HomePage() {
           </div>
 
           {/* Steps as horizontal list with numbers */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '40px' }}>
+          <div className="steps-grid">
             {[
               { n: '1', title: 'Pilih Layanan', desc: 'Cari layanan yang Anda butuhkan dari katalog lengkap kami.' },
               { n: '2', title: 'Isi Detail & Bayar', desc: 'Lengkapi form pesanan, pilih metode pembayaran yang nyaman.' },
@@ -223,7 +223,7 @@ export default function HomePage() {
             <h2 className="heading-1">Pertanyaan yang Sering Diajukan</h2>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+          <div className="faq-grid">
             {[
               {
                 q: 'Apakah ada garansi revisi untuk pengerjaan tugas & skripsi?',

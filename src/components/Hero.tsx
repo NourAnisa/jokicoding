@@ -24,7 +24,7 @@ export default function Hero({ searchQuery, onSearchChange }: HeroProps) {
           <em>Tepat Waktu.</em>
         </h1>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', alignItems: 'flex-start' }}>
+        <div className="hero-grid">
           {/* Left: description + CTAs */}
           <div>
             <p style={{ fontSize: '1.08rem', color: 'var(--ink-2)', lineHeight: 1.75, marginBottom: '28px', maxWidth: '420px' }}>
@@ -136,11 +136,6 @@ export default function Hero({ searchQuery, onSearchChange }: HeroProps) {
         </div>
       </div>
 
-      <style>{`
-        @media (max-width: 860px) {
-          .hero-grid { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
     </section>
   );
 }

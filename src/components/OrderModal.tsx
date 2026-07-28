@@ -136,13 +136,13 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
   };
 
   return (
-    <div style={{
+    <div className="modal-overlay" style={{
       position: 'fixed', inset: 0, zIndex: 200,
       background: 'rgba(0, 0, 0, 0.65)',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       padding: '20px',
     }}>
-      <div style={{
+      <div className="modal-inner" style={{
         background: 'var(--white)',
         color: 'var(--ink)',
         border: '1px solid var(--paper-3)',

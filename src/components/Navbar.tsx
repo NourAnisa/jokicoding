@@ -72,7 +72,7 @@ export default function Navbar() {
 
         {/* Right controls */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
-          <Link href="/admin/dashboard" style={{
+          <Link href="/admin/dashboard" id="nav-admin-link" style={{
             fontSize: '0.8rem', fontWeight: 600, color: 'var(--ink-3)',
             padding: '6px 12px', borderRadius: 'var(--radius)',
             border: '1px solid var(--paper-3)',
@@ -152,6 +152,10 @@ export default function Navbar() {
         @media (max-width: 768px) {
           #main-nav { display: none !important; }
           #mobile-menu-toggle { display: flex !important; }
+          #nav-admin-link { display: none !important; }
+        }
+        @media (max-width: 480px) {
+          #nav-wa-cta { display: none !important; }
         }
       `}</style>
     </header>
