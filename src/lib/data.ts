@@ -16,39 +16,15 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
 export const INITIAL_PARTNERS: Partner[] = [
   {
     id: 'part-1',
-    name: 'Google Cloud for Education',
-    logoUrl: 'https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?w=120&auto=format&fit=crop&q=80',
-    category: 'Teknologi'
+    name: 'Multi Jasa',
+    logoUrl: '/partners/multijasa.jpg',
+    category: 'Product/service'
   },
   {
     id: 'part-2',
-    name: 'GitHub Campus Student',
-    logoUrl: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=120&auto=format&fit=crop&q=80',
-    category: 'Developer'
-  },
-  {
-    id: 'part-3',
-    name: 'Kemendikbud Kampus Merdeka',
-    logoUrl: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=120&auto=format&fit=crop&q=80',
-    category: 'Pendidikan'
-  },
-  {
-    id: 'part-4',
-    name: 'Bank BCA Business',
-    logoUrl: 'https://images.unsplash.com/photo-1601597111158-2fceff292cdc?w=120&auto=format&fit=crop&q=80',
-    category: 'Perbankan'
-  },
-  {
-    id: 'part-5',
-    name: 'GoPay QRIS Indonesia',
-    logoUrl: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=120&auto=format&fit=crop&q=80',
-    category: 'Pembayaran'
-  },
-  {
-    id: 'part-6',
-    name: 'Canva Pro for Education',
-    logoUrl: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=120&auto=format&fit=crop&q=80',
-    category: 'Desain'
+    name: 'Noura Dev',
+    logoUrl: '/partners/nouradev.jpg',
+    category: 'Programer'
   }
 ];
 
@@ -399,7 +375,13 @@ export function getPartners(): Partner[] {
       localStorage.setItem(LOCAL_STORAGE_PARTNERS_KEY, JSON.stringify(INITIAL_PARTNERS));
       return INITIAL_PARTNERS;
     }
-    return JSON.parse(stored);
+    const parsed: Partner[] = JSON.parse(stored);
+    // Auto-migrate legacy default partners if found
+    if (parsed.some(p => p.name === 'Google Cloud for Education')) {
+      localStorage.setItem(LOCAL_STORAGE_PARTNERS_KEY, JSON.stringify(INITIAL_PARTNERS));
+      return INITIAL_PARTNERS;
+    }
+    return parsed;
   } catch {
     return INITIAL_PARTNERS;
   }
