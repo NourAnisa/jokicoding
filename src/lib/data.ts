@@ -604,6 +604,22 @@ export const INITIAL_SERVICES: Service[] = [
     rating: 4.91,
     reviewCount: 76,
     iconName: 'Monitor'
+  },
+  {
+    id: 'srv-37',
+    title: 'Jasa Cek & Pengujian Plagiasi Turnitin',
+    slug: 'jasa-cek-plagiasi-turnitin',
+    category: 'Akademik',
+    price: 13000,
+    priceUnit: '/dokumen',
+    description: 'Jasa cek plagiasi Turnitin No Repository resmi & cepat: hasil PDF similarity index lengkap + highlight baris.',
+    fullDescription: 'Layanan cek & pengujian tingkat plagiasi (similarity index) dokumen naskah ilmiah, skripsi, tesis, disertasi, jurnal, & makalah menggunakan akun resmi Turnitin No Repository. Dokumen dijamin 100% aman (tidak tersimpan di database Turnitin), pengerjaan cepat 5-15 menit, gratis hasil laporan resmi format PDF lengkap dengan highlight bagian yang mirip.',
+    features: ['Turnitin No Repository (100% Aman)', 'Laporan Resmi Format PDF', 'Proses Cepat 5-15 Menit', 'Highlight Kalimat & Daftar Sumber'],
+    estimatedTime: '15 Menit',
+    popular: true,
+    rating: 4.99,
+    reviewCount: 410,
+    iconName: 'FileCheck'
   }
 ];
 
