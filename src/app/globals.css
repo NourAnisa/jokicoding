@@ -396,11 +396,10 @@ img { max-width: 100%; }
     max-width: 100% !important;
     width: 100% !important;
     border-radius: var(--radius-lg) var(--radius-lg) 0 0 !important;
-    max-height: 90vh !important;
+    max-height: 88vh !important;
+    overflow-y: auto !important;
     margin: 0 !important;
-    transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
+    padding: 20px 18px 28px !important;
   }
   .modal-overlay {
     align-items: flex-end !important;

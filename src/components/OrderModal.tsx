@@ -138,9 +138,10 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
   return (
     <div className="modal-overlay" style={{
       position: 'fixed', inset: 0, zIndex: 200,
-      background: 'rgba(0, 0, 0, 0.65)',
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
-      padding: '20px',
+      background: 'rgba(0, 0, 0, 0.7)',
+      display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
+      padding: '30px 16px',
+      overflowY: 'auto',
     }}>
       <div className="modal-inner" style={{
         background: 'var(--white)',
@@ -148,8 +149,7 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
         border: '1px solid var(--paper-3)',
         borderRadius: 'var(--radius-lg)',
         maxWidth: '560px', width: '100%',
-        maxHeight: '90vh',
-        overflowY: 'auto',
+        margin: '0 auto 30px',
         padding: '28px',
         boxShadow: 'var(--shadow-md)',
         position: 'relative',
@@ -497,12 +497,16 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
                 src={DEFAULT_SITE_CONFIG.qrisImageUrl}
                 alt="QRIS Payment Code"
                 style={{
-                  width: '170px', height: '170px',
-                  margin: '0 auto 10px',
+                  width: '100%',
+                  maxWidth: '300px',
+                  height: 'auto',
+                  margin: '0 auto 12px',
+                  display: 'block',
                   borderRadius: 'var(--radius)',
                   background: '#ffffff',
                   padding: '8px',
                   border: '1px solid var(--paper-3)',
+                  boxShadow: 'var(--shadow-xs)',
                 }}
               />
               <p style={{ fontSize: '0.78rem', color: 'var(--ink-3)' }}>
