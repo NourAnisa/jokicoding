@@ -396,11 +396,15 @@ img { max-width: 100%; }
     max-width: 100% !important;
     width: 100% !important;
     border-radius: var(--radius-lg) var(--radius-lg) 0 0 !important;
-    max-height: 92vh !important;
-    margin-top: auto;
+    max-height: 90vh !important;
+    margin: 0 !important;
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
   .modal-overlay {
     align-items: flex-end !important;
+    padding: 0 !important;
   }
 
   /* Admin dashboard table scroll */

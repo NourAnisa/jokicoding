@@ -417,7 +417,7 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
                   textAlign: 'left',
                   fontSize: '0.82rem',
                   fontWeight: 600,
-                  transition: 'all 0.15s ease',
+                  transition: 'background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease',
                 }}
               >
                 <div>💬 Admin 1 (Utama)</div>
@@ -437,7 +437,7 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
                   textAlign: 'left',
                   fontSize: '0.82rem',
                   fontWeight: 600,
-                  transition: 'all 0.15s ease',
+                  transition: 'background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease',
                 }}
               >
                 <div>💬 Admin 2 (Cadangan)</div>
@@ -471,7 +471,7 @@ export default function OrderModal({ service, onClose }: OrderModalProps) {
                     textAlign: 'center',
                     fontSize: '0.8rem',
                     fontWeight: 600,
-                    transition: 'all 0.15s ease',
+                    transition: 'background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease',
                   }}
                 >
                   <Icon size={18} style={{ margin: '0 auto 4px' }} />
