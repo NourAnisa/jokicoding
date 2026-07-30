@@ -17,14 +17,14 @@ export function generateWhatsAppLink(
   let paymentText = '';
   switch (order.paymentMethod) {
     case 'qris_gopay':
-      paymentText = '📲 GoPay / QRIS Instant (Sudah/Akan Scan QRIS)';
+      paymentText = 'GoPay / QRIS Instant (Sudah/Akan Scan QRIS)';
       break;
     case 'transfer_bank':
-      paymentText = '🏦 Transfer Bank (BCA / Mandiri / BRI)';
+      paymentText = 'Transfer Bank (BCA / Mandiri / BRI)';
       break;
     case 'cash':
     default:
-      paymentText = '💵 Bayar di Tempat / Pas Pengerjaan Selesai';
+      paymentText = 'Bayar di Tempat / Pas Pengerjaan Selesai';
       break;
   }
 
@@ -48,7 +48,7 @@ export function generateWhatsAppLink(
 
   const text = `Halo Admin *JokiCoding*, saya ingin memesan jasa berikut:
 
-📋 *DETAIL PEMESANAN*
+*DETAIL PEMESANAN*
 • *No. Pesanan* : ${order.id || 'N/A'}
 • *Nama*        : ${order.customerName}
 • *No. WA*      : ${order.customerPhone}
@@ -56,7 +56,7 @@ ${order.customerEmail ? `• *Email*       : ${order.customerEmail}\n` : ''}• 
 ${customDetailsText}• *Estimasi Biaya* : ${formatCurrency(order.totalPrice)}
 • *Metode Bayar* : ${paymentText}
 ${order.deadline ? `• *Target Deadline*: ${order.deadline}\n` : ''}
-📝 *Catatan / Instruksi Pengerjaan*:
+*Catatan / Instruksi Pengerjaan*:
 "${order.notes || 'Tidak ada catatan khusus'}"
 
 Mohon konfirmasinya ya Min, Terima kasih!`;
