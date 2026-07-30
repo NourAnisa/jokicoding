@@ -5,7 +5,7 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
   tagline: 'Solusi Terpercaya untuk Jasa Ngoding, Tugas Akademik, Desain, & Multimedia',
   adminPhone: '6281521907985',
   adminPhone2: '6285155133070',
-  qrisImageUrl: 'https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=00020101021126580014ID.GO.QRIS.WWW01189360091400000000005204581253033605802ID5914JOKICODING%20INC6007JAKARTA61051234562070703A0163047A8F',
+  qrisImageUrl: '/qris.jpg',
   bankInfo: {
     bankName: 'BCA',
     accountNumber: '8720192841',
@@ -743,7 +743,13 @@ export function getSiteConfig(): SiteConfig {
   if (typeof window === 'undefined') return DEFAULT_SITE_CONFIG;
   try {
     const stored = localStorage.getItem(LOCAL_STORAGE_CONFIG_KEY);
-    return stored ? JSON.parse(stored) : DEFAULT_SITE_CONFIG;
+    if (!stored) return DEFAULT_SITE_CONFIG;
+    const parsed: SiteConfig = JSON.parse(stored);
+    if (!parsed.qrisImageUrl || parsed.qrisImageUrl.includes('qrserver.com')) {
+      parsed.qrisImageUrl = '/qris.jpg';
+      localStorage.setItem(LOCAL_STORAGE_CONFIG_KEY, JSON.stringify(parsed));
+    }
+    return parsed;
   } catch {
     return DEFAULT_SITE_CONFIG;
   }
