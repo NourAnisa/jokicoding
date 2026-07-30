@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     default: 'JokiCoding — Jasa Ngoding, Skripsi, PPT, CV, Edit Video & Hosting',
     template: '%s | JokiCoding',
   },
-  description: 'Jasa ngoding terpercaya, pengerjaan skripsi, publikasi jurnal, makalah, desain PPT, CV ATS, edit video, hosting & tulis tangan. Cepat, garansi revisi, bayar via QRIS/GoPay.',
+  description: 'Jasa ngoding terpercaya, pengerjaan skripsi, desain PPT, edit video & hosting. Dikerjakan ahli berpengalaman, garansi revisi & bayar via QRIS/GoPay.',
   keywords: [
     'jasa ngoding', 'jasa skripsi', 'jasa hosting', 'jasa pengetikan',
     'jasa tulis tangan', 'jasa edit video', 'jasa desain ppt',
